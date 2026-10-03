@@ -1,628 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AvailFinder</title>
 
-<title>AvailFinder — Find Where Anything Is Available</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-* {
-  box-sizing: border-box;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0f19;
+      color: white;
+    }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b1020;
-  color: white;
-}
+    header {
+      text-align: center;
+      padding: 45px 20px 25px;
+    }
 
-header {
-  padding: 20px;
-  text-align: center;
-}
+    h1 {
+      font-size: 42px;
+      margin: 0;
+    }
 
-.logo {
-  font-size: 28px;
-  font-weight: bold;
-}
+    .tagline {
+      color: #aab2c5;
+      margin-top: 10px;
+      font-size: 17px;
+    }
 
-.logo span {
-  color: #5ee7ff;
-}
+    .search-box {
+      max-width: 700px;
+      margin: 25px auto;
+      padding: 0 20px;
+    }
 
-.hero {
-  text-align: center;
-  padding: 40px 20px;
-}
+    input,
+    select {
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      border: 1px solid #30384d;
+      background: #151b29;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
 
-.hero h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 10px 20px 25px;
+    }
 
-.hero p {
-  color: #aeb8ce;
-}
+    .category {
+      background: #151b29;
+      border: 1px solid #30384d;
+      padding: 10px 15px;
+      border-radius: 20px;
+      color: #cbd2e3;
+    }
 
-.search {
-  max-width: 750px;
-  margin: 25px auto;
-  display: flex;
-  gap: 8px;
-}
+    #results {
+      max-width: 700px;
+      margin: 10px auto 50px;
+      padding: 0 20px;
+    }
 
-.search select,
-.search input {
-  padding: 16px;
-  border: 0;
-  border-radius: 10px;
-  font-size: 16px;
-}
+    .card {
+      background: #151b29;
+      border: 1px solid #30384d;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 15px;
+    }
 
-.search select {
-  width: 150px;
-}
+    .card h2 {
+      margin-top: 0;
+    }
 
-.search input {
-  flex: 1;
-}
+    .available {
+      color: #4ade80;
+      font-weight: bold;
+    }
 
-.search button {
-  padding: 16px 20px;
-  border: 0;
-  border-radius: 10px;
-  background: #5ee7ff;
-  color: #071018;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .not-available {
+      color: #f87171;
+      font-weight: bold;
+    }
 
-.results {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
-}
+    .official-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 18px;
+      background: white;
+      color: black;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
 
-.result {
-  background: #151c31;
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 14px;
-}
+    .empty {
+      text-align: center;
+      color: #929aae;
+      padding: 30px;
+    }
 
-.result h3 {
-  margin-top: 0;
-}
-
-.available {
-  color: #5ee7ff;
-  font-weight: bold;
-}
-
-.result a {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 10px 15px;
-  background: #5ee7ff;
-  color: #071018;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.categories {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-}
-
-.categories h2 {
-  text-align: center;
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.category {
-  background: #151c31;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.info {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 25px;
-  text-align: center;
-}
-
-.info p {
-  color: #aeb8ce;
-  line-height: 1.6;
-}
-
-footer {
-  text-align: center;
-  padding: 30px;
-  color: #707990;
-}
-
-@media (max-width: 600px) {
-
-  .hero h1 {
-    font-size: 30px;
-  }
-
-  .search {
-    flex-direction: column;
-  }
-
-  .search select {
-    width: 100%;
-  }
-
-  .search input,
-  .search button {
-    width: 100%;
-  }
-}
-
-@media (min-width: 700px) {
-
-  .category-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-}
-</style>
+    footer {
+      text-align: center;
+      color: #687187;
+      padding: 30px;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
+  <header>
+    <h1>AvailFinder</h1>
+    <div class="tagline">Find where anything is available.</div>
+  </header>
 
-  <div class="logo">
-    🌍 Avail<span>Finder</span>
-  </div>
-
-</header>
-
-
-<section class="hero">
-
-  <h1>Find Where Anything Is Available</h1>
-
-  <p>
-    Search apps, games, movies, TV shows, music and software.
-  </p>
-
-
-  <div class="search">
-
-    <select id="countrySelect">
-
-      <option value="India">🇮🇳 India</option>
-
-      <option value="USA">🇺🇸 USA</option>
-
-      <option value="UK">🇬🇧 UK</option>
-
-      <option value="Canada">🇨🇦 Canada</option>
-
-      <option value="Australia">🇦🇺 Australia</option>
-
-      <option value="Germany">🇩🇪 Germany</option>
-
-      <option value="Japan">🇯🇵 Japan</option>
-
-      <option value="South Korea">🇰🇷 South Korea</option>
-
-      <option value="Brazil">🇧🇷 Brazil</option>
-
-      <option value="France">🇫🇷 France</option>
-
-    </select>
-
+  <div class="search-box">
 
     <input
-      id="searchInput"
       type="text"
-      placeholder="Search Minecraft, WhatsApp, Netflix..."
+      id="searchInput"
+      placeholder="Search apps, games, movies, music..."
     >
 
-
-    <button onclick="searchItem()">
-      Search
-    </button>
-
-  </div>
-
-</section>
-
-
-<section class="results" id="results">
-
-</section>
-
-
-<section class="categories">
-
-  <h2>Explore Categories</h2>
-
-
-  <div class="category-grid">
-
-    <div class="category">
-      📱 Apps
-    </div>
-
-    <div class="category">
-      🎮 Games
-    </div>
-
-    <div class="category">
-      🎬 Movies
-    </div>
-
-    <div class="category">
-      📺 TV Shows
-    </div>
-
-    <div class="category">
-      🎵 Music
-    </div>
-
-    <div class="category">
-      💻 Software
-    </div>
+    <select id="countrySelect">
+      <option value="India">🇮🇳 India</option>
+      <option value="USA">🇺🇸 USA</option>
+      <option value="UK">🇬🇧 UK</option>
+      <option value="Canada">🇨🇦 Canada</option>
+      <option value="Australia">🇦🇺 Australia</option>
+      <option value="Germany">🇩🇪 Germany</option>
+      <option value="Japan">🇯🇵 Japan</option>
+      <option value="South Korea">🇰🇷 South Korea</option>
+      <option value="Brazil">🇧🇷 Brazil</option>
+      <option value="France">🇫🇷 France</option>
+    </select>
 
   </div>
 
-</section>
-
-
-<section class="info">
-
-  <h2>How AvailFinder Works</h2>
-
-  <p>
-    Search for something you want to find.
-    Choose your country and discover where it is officially available.
-  </p>
-
-  <p>
-    AvailFinder helps you find legitimate stores,
-    platforms and official sources.
-  </p>
-
-</section>
-
-
-<footer>
-
-  © 2026 AvailFinder
-
-</footer>
-
-
-<script>
-
-const database = [
-
-  {
-    name: "Minecraft",
-    category: "🎮 Game",
-    platform: "Android / PC / Console",
-    link: "https://www.minecraft.net/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "South Korea",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "WhatsApp",
-    category: "📱 App",
-    platform: "Android / iPhone / Web",
-    link: "https://www.whatsapp.com/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "Instagram",
-    category: "📱 App",
-    platform: "Android / iPhone / Web",
-    link: "https://www.instagram.com/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "South Korea",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "Spotify",
-    category: "🎵 Music",
-    platform: "Android / iPhone / Web",
-    link: "https://www.spotify.com/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "Telegram",
-    category: "📱 App",
-    platform: "Android / iPhone / Web",
-    link: "https://telegram.org/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "South Korea",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "VLC",
-    category: "💻 Software",
-    platform: "Android / Windows / Mac / Linux",
-    link: "https://www.videolan.org/vlc/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "South Korea",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "Steam",
-    category: "💻 Software",
-    platform: "Windows / Mac / Linux",
-    link: "https://store.steampowered.com/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "South Korea",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "Fortnite",
-    category: "🎮 Game",
-    platform: "PC / Console / Android",
-    link: "https://www.fortnite.com/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "South Korea",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "Netflix",
-    category: "📺 TV & Movies",
-    platform: "Android / iPhone / Web / TV",
-    link: "https://www.netflix.com/",
-    countries: [
-      "India",
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "South Korea",
-      "Brazil",
-      "France"
-    ]
-  },
-
-
-  {
-    name: "PUBG Mobile",
-    category: "🎮 Game",
-    platform: "Mobile",
-    link: "https://www.battlegroundsmobileindia.com/",
-    countries: [
-      "USA",
-      "UK",
-      "Canada",
-      "Australia",
-      "Germany",
-      "Japan",
-      "South Korea",
-      "Brazil",
-      "France"
-    ]
-  }
-
-];
-
-
-function searchItem() {
-
-  const input = document
-    .getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
-
-
-  const country = document
-    .getElementById("countrySelect")
-    .value;
-
-
-  const results = document
-    .getElementById("results");
-
-
-  results.innerHTML = "";
-
-
-  if (input === "") {
-
-    results.innerHTML =
-      "<div class='result'>" +
-      "<h3>🔎 Search something</h3>" +
-      "<p>Type an app, game, movie or software name.</p>" +
-      "</div>";
-
-    return;
-  }
-
-
-  const matches = database.filter(item =>
-    item.name.toLowerCase().includes(input)
-  );
-
-
-  if (matches.length === 0) {
-
-    results.innerHTML =
-      "<div class='result'>" +
-      "<h3>🔎 Nothing found</h3>" +
-      "<p>We don't have this item in our database yet.</p>" +
-      "</div>";
-
-    return;
-  }
-
-
-  matches.forEach(item => {
-
-    const isAvailable =
-      item.countries.includes(country);
-
-
-    const status = isAvailable
-      ? "✅ Available"
-      : "❌ Not currently listed";
-
-
-    results.innerHTML += `
-
-      <div class="result">
-
-        <h3>${item.name}</h3>
-
-        <p>${item.category}</p>
-
-        <p>
-          🌍 Country: ${country}
-        </p>
-
-        <p class="available">
-          ${status}
-        </p>
-
-        <p>
-          Platform: ${item.platform}
-        </p>
-
-        <a
-          href="${item.link}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Official Source
-        </a>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-document
-  .getElementById("searchInput")
-  .addEventListener("keypress", function(event) {
-
-    if (event.key === "Enter") {
-      searchItem();
+  <div class="categories">
+    <div class="category">📱 Apps</div>
+    <div class="category">🎮 Games</div>
+    <div class="category">🎬 Movies</div>
+    <div class="category">📺 TV Shows</div>
+    <div class="category">🎵 Music</div>
+    <div class="category">💻 Software</div>
+  </div>
+
+  <div id="results">
+    <div class="empty">
+      Search for something above.
+    </div>
+  </div>
+
+  <footer>
+    © 2026 AvailFinder
+  </footer>
+
+  <script>
+
+    let database = [];
+
+    const searchInput = document.getElementById("searchInput");
+    const countrySelect = document.getElementById("countrySelect");
+    const results = document.getElementById("results");
+
+    // Load our separate database
+    fetch("./data.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Could not load data.json");
+        }
+
+        return response.json();
+      })
+      .then(data => {
+        database = data;
+        console.log("AvailFinder database loaded");
+      })
+      .catch(error => {
+        results.innerHTML = `
+          <div class="empty">
+            ❌ Database could not be loaded.
+          </div>
+        `;
+
+        console.error(error);
+      });
+
+
+    function searchDatabase() {
+
+      const searchText = searchInput.value.toLowerCase().trim();
+      const country = countrySelect.value;
+
+      if (searchText === "") {
+        results.innerHTML = `
+          <div class="empty">
+            Search for something above.
+          </div>
+        `;
+        return;
+      }
+
+      const matches = database.filter(item =>
+        item.name.toLowerCase().includes(searchText) ||
+        item.category.toLowerCase().includes(searchText)
+      );
+
+      if (matches.length === 0) {
+
+        results.innerHTML = `
+          <div class="empty">
+            🔍 No results found for "${searchText}"
+          </div>
+        `;
+
+        return;
+      }
+
+      results.innerHTML = "";
+
+      matches.forEach(item => {
+
+        const available = item.countries.includes(country);
+
+        const card = document.createElement("div");
+
+        card.className = "card";
+
+        card.innerHTML = `
+          <h2>${item.name}</h2>
+
+          <p>📂 Category: ${item.category}</p>
+
+          <p>🌍 Country: ${country}</p>
+
+          <p class="${available ? "available" : "not-available"}">
+            ${available ? "✅ Available" : "❌ Not currently listed"}
+          </p>
+
+          <p>📱 Platform: ${item.platform}</p>
+
+          <a
+            class="official-link"
+            href="${item.link}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Official Source →
+          </a>
+        `;
+
+        results.appendChild(card);
+
+      });
+
     }
 
-  });
 
-</script>
+    searchInput.addEventListener("input", searchDatabase);
+
+    countrySelect.addEventListener("change", searchDatabase);
+
+  </script>
 
 </body>
 </html>
