@@ -7,6 +7,7 @@
 <title>AvailFinder — Find Where Anything Is Available</title>
 
 <style>
+
 * {
   box-sizing: border-box;
 }
@@ -41,8 +42,8 @@ header {
 
 .search-area {
   max-width: 850px;
-  margin: 0 auto;
-  padding: 10px 20px 35px;
+  margin: auto;
+  padding: 10px 20px 30px;
 }
 
 .search-row {
@@ -50,7 +51,7 @@ header {
   gap: 10px;
 }
 
-.search-row input {
+input {
   flex: 1;
 }
 
@@ -77,7 +78,7 @@ select {
 
 .categories {
   max-width: 850px;
-  margin: 0 auto;
+  margin: auto;
   padding: 0 20px 30px;
 }
 
@@ -100,6 +101,7 @@ select {
   border-radius: 30px;
   color: #d1d5db;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .category:hover {
@@ -107,9 +109,15 @@ select {
   color: #5eead4;
 }
 
+.category.active {
+  background: #5eead4;
+  color: #071014;
+  border-color: #5eead4;
+}
+
 .results {
   max-width: 850px;
-  margin: 0 auto;
+  margin: auto;
   padding: 10px 20px 60px;
 }
 
@@ -217,18 +225,26 @@ footer {
   }
 
 }
+
 </style>
 </head>
 
+
 <body>
 
+
 <header>
-  <div class="logo">Avail<span>Finder</span></div>
+
+  <div class="logo">
+    Avail<span>Finder</span>
+  </div>
 
   <div class="tagline">
     Find where anything is available.
   </div>
+
 </header>
+
 
 
 <div class="search-area">
@@ -239,24 +255,37 @@ footer {
       type="text"
       id="searchInput"
       placeholder="Search apps, games, movies, music..."
+      autocomplete="off"
     >
 
     <select id="countrySelect">
+
       <option value="India">🇮🇳 India</option>
+
       <option value="USA">🇺🇸 USA</option>
+
       <option value="UK">🇬🇧 UK</option>
+
       <option value="Canada">🇨🇦 Canada</option>
+
       <option value="Australia">🇦🇺 Australia</option>
+
       <option value="Germany">🇩🇪 Germany</option>
+
       <option value="Japan">🇯🇵 Japan</option>
+
       <option value="South Korea">🇰🇷 South Korea</option>
+
       <option value="Brazil">🇧🇷 Brazil</option>
+
       <option value="France">🇫🇷 France</option>
+
     </select>
 
   </div>
 
 </div>
+
 
 
 <div class="categories">
@@ -265,29 +294,61 @@ footer {
     Browse categories
   </div>
 
+
   <div class="category-list">
 
-    <div class="category" onclick="filterCategory('Apps')">
+    <div
+      class="category active"
+      onclick="filterCategory('', this)"
+    >
+      🔎 All
+    </div>
+
+
+    <div
+      class="category"
+      onclick="filterCategory('Apps', this)"
+    >
       📱 Apps
     </div>
 
-    <div class="category" onclick="filterCategory('Games')">
+
+    <div
+      class="category"
+      onclick="filterCategory('Games', this)"
+    >
       🎮 Games
     </div>
 
-    <div class="category" onclick="filterCategory('Movies')">
+
+    <div
+      class="category"
+      onclick="filterCategory('Movies', this)"
+    >
       🎬 Movies
     </div>
 
-    <div class="category" onclick="filterCategory('TV')">
+
+    <div
+      class="category"
+      onclick="filterCategory('TV', this)"
+    >
       📺 TV Shows
     </div>
 
-    <div class="category" onclick="filterCategory('Music')">
+
+    <div
+      class="category"
+      onclick="filterCategory('Music', this)"
+    >
       🎵 Music
     </div>
 
-    <div class="category" onclick="filterCategory('Software')">
+
+    <div
+      class="category"
+      onclick="filterCategory('Software', this)"
+    >
       💻 Software
     </div>
 
@@ -296,7 +357,11 @@ footer {
 </div>
 
 
-<div class="results" id="results">
+
+<div
+  class="results"
+  id="results"
+>
 
   <div class="empty">
     🔎 Search for something to see where it is available.
@@ -305,20 +370,23 @@ footer {
 </div>
 
 
+
 <section class="how">
 
   <div class="how-box">
 
-    <h2>How AvailFinder Works</h2>
+    <h2>
+      How AvailFinder Works
+    </h2>
 
     <p>
-      Search for an app, game, movie, TV show, music service
-      or software and select a country.
+      Search for an app, game, movie, TV show,
+      music service or software and select a country.
     </p>
 
     <p>
-      AvailFinder shows the platform and an official source
-      where you can check the service.
+      AvailFinder shows the platform and an official
+      source where you can check the service.
     </p>
 
   </div>
@@ -326,61 +394,100 @@ footer {
 </section>
 
 
+
 <footer>
+
   © 2026 AvailFinder
+
 </footer>
 
 
+
 <script>
+
 
 let database = [];
 
 let currentCategory = "";
 
 
+
 const searchInput =
   document.getElementById("searchInput");
 
+
 const countrySelect =
   document.getElementById("countrySelect");
+
 
 const results =
   document.getElementById("results");
 
 
+
+/* LOAD DATABASE */
+
 fetch("./data.json")
 
-  .then(response => {
+.then(function(response) {
 
-    if (!response.ok) {
-      throw new Error("Database error");
-    }
+  if (!response.ok) {
 
-    return response.json();
+    throw new Error(
+      "Could not load database"
+    );
 
-  })
+  }
 
-  .then(data => {
+  return response.json();
 
-    database = data;
+})
 
-  })
 
-  .catch(error => {
+.then(function(data) {
 
-    results.innerHTML = `
-      <div class="empty">
-        ❌ Could not load AvailFinder database.
-      </div>
-    `;
+  database = data;
 
-  });
+  console.log(
+    "AvailFinder database loaded:",
+    database.length
+  );
 
+})
+
+
+.catch(function(error) {
+
+  console.error(error);
+
+  results.innerHTML = `
+
+    <div class="empty">
+
+      ❌ Database could not be loaded.
+
+      <br><br>
+
+      Please try refreshing the page.
+
+    </div>
+
+  `;
+
+});
+
+
+
+/* SEARCH */
 
 function searchDatabase() {
 
-  const text =
-    searchInput.value.toLowerCase().trim();
+
+  const searchText =
+    searchInput.value
+      .toLowerCase()
+      .trim();
+
 
   const country =
     countrySelect.value;
@@ -389,49 +496,97 @@ function searchDatabase() {
   let matches = database;
 
 
+
+  /* CATEGORY FILTER */
+
   if (currentCategory !== "") {
 
-    matches = matches.filter(item =>
-      item.category
+    matches = matches.filter(function(item) {
+
+      return item.category
         .toLowerCase()
-        .includes(currentCategory.toLowerCase())
-    );
+        .includes(
+          currentCategory.toLowerCase()
+        );
+
+    });
 
   }
 
 
-  if (text !== "") {
 
-    matches = matches.filter(item =>
+  /* SEARCH FILTER */
 
-      item.name.toLowerCase().includes(text) ||
+  if (searchText !== "") {
 
-      item.category.toLowerCase().includes(text)
+    matches = matches.filter(function(item) {
 
-    );
+      return (
+
+        item.name
+          .toLowerCase()
+          .includes(searchText)
+
+        ||
+
+        item.category
+          .toLowerCase()
+          .includes(searchText)
+
+        ||
+
+        item.platform
+          .toLowerCase()
+          .includes(searchText)
+
+      );
+
+    });
 
   }
 
 
-  if (text === "" && currentCategory === "") {
+
+  /* EMPTY SEARCH */
+
+  if (
+    searchText === "" &&
+    currentCategory === ""
+  ) {
 
     results.innerHTML = `
+
       <div class="empty">
-        🔎 Search for something to see where it is available.
+
+        🔎 Search for something to see
+        where it is available.
+
       </div>
+
     `;
 
     return;
 
   }
 
+
+
+  /* NO RESULTS */
 
   if (matches.length === 0) {
 
     results.innerHTML = `
+
       <div class="empty">
+
         ❌ No results found.
+
+        <br><br>
+
+        Try another name or category.
+
       </div>
+
     `;
 
     return;
@@ -439,42 +594,76 @@ function searchDatabase() {
   }
 
 
+
+  /* DISPLAY RESULTS */
+
   results.innerHTML = "";
 
 
-  matches.forEach(item => {
+
+  matches.forEach(function(item) {
+
 
     const available =
       item.countries.includes(country);
 
 
+
     const card =
       document.createElement("div");
 
-    card.className = "result-card";
+
+    card.className =
+      "result-card";
+
 
 
     card.innerHTML = `
 
       <div class="category-label">
+
         ${item.category}
+
       </div>
+
 
       <h2>
+
         ${item.name}
+
       </h2>
 
+
       <div class="info">
+
         🌍 Country: ${country}
+
       </div>
 
-      <div class="${available ? "available" : "unavailable"}">
-        ${available ? "✅ Available" : "❌ Not currently listed"}
+
+      <div
+        class="${
+          available
+            ? "available"
+            : "unavailable"
+        }"
+      >
+
+        ${
+          available
+            ? "✅ Available"
+            : "❌ Not currently listed"
+        }
+
       </div>
+
 
       <div class="info">
+
         📱 Platform: ${item.platform}
+
       </div>
+
 
       <a
         class="official"
@@ -482,7 +671,9 @@ function searchDatabase() {
         target="_blank"
         rel="noopener noreferrer"
       >
+
         Official Source →
+
       </a>
 
     `;
@@ -490,21 +681,58 @@ function searchDatabase() {
 
     results.appendChild(card);
 
+
   });
 
 }
 
 
-function filterCategory(category) {
 
-  currentCategory = category;
+/* CATEGORY BUTTON */
+
+function filterCategory(
+  category,
+  button
+) {
+
+
+  currentCategory =
+    category;
+
 
   searchInput.value = "";
+
+
+
+  document
+    .querySelectorAll(".category")
+    .forEach(function(item) {
+
+      item.classList.remove(
+        "active"
+      );
+
+    });
+
+
+
+  if (button) {
+
+    button.classList.add(
+      "active"
+    );
+
+  }
+
+
 
   searchDatabase();
 
 }
 
+
+
+/* SEARCH EVENTS */
 
 searchInput.addEventListener(
   "input",
@@ -512,12 +740,15 @@ searchInput.addEventListener(
 );
 
 
+
 countrySelect.addEventListener(
   "change",
   searchDatabase
 );
 
+
 </script>
+
 
 </body>
 </html>
