@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Minecraft",
+    "category": "Games",
+    "platform": "Android, iOS, PC, Console",
+    "link": "https://www.minecraft.net/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "WhatsApp",
+    "category": "Apps",
+    "platform": "Android, iOS, Web",
+    "link": "https://www.whatsapp.com/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "Instagram",
+    "category": "Apps",
+    "platform": "Android, iOS, Web",
+    "link": "https://www.instagram.com/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "Spotify",
+    "category": "Music",
+    "platform": "Android, iOS, Web, PC",
+    "link": "https://www.spotify.com/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "Telegram",
+    "category": "Apps",
+    "platform": "Android, iOS, Web, PC",
+    "link": "https://telegram.org/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "VLC",
+    "category": "Software",
+    "platform": "Android, iOS, Windows, macOS, Linux",
+    "link": "https://www.videolan.org/vlc/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "Steam",
+    "category": "Games",
+    "platform": "PC",
+    "link": "https://store.steampowered.com/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "Fortnite",
+    "category": "Games",
+    "platform": "PC, Console, Mobile",
+    "link": "https://www.fortnite.com/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "Netflix",
+    "category": "Movies & TV",
+    "platform": "Android, iOS, Web, Smart TV",
+    "link": "https://www.netflix.com/",
+    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  },
+  {
+    "name": "PUBG Mobile",
+    "category": "Games",
+    "platform": "Android, iOS",
+    "link": "https://www.pubgmobile.com/",
+    "countries": ["USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"]
+  }
+]
