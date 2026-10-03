@@ -1,62 +1,608 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>AvailFinder Test</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AvailFinder</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#080b12;
+  color:white;
+}
+
+header{
+  padding:22px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #202431;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#7c5cff;
+}
+
+.container{
+  width:86%;
+  max-width:1100px;
+  margin:auto;
+}
+
+.hero{
+  text-align:center;
+  padding:70px 10px 40px;
+}
+
+.hero h1{
+  font-size:48px;
+  margin:0 0 15px;
+}
+
+.hero p{
+  color:#9da3b4;
+  font-size:18px;
+}
+
+.searchBox{
+  display:flex;
+  max-width:700px;
+  margin:30px auto;
+  gap:10px;
+}
+
+.searchBox input{
+  flex:1;
+  padding:17px;
+  border-radius:12px;
+  border:1px solid #303646;
+  background:#111621;
+  color:white;
+  font-size:16px;
+  outline:none;
+}
+
+.searchBox button{
+  padding:17px 28px;
+  border:none;
+  border-radius:12px;
+  background:#7c5cff;
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin:25px 0;
+}
+
+.filter{
+  padding:10px 17px;
+  border:1px solid #303646;
+  background:#111621;
+  color:#ddd;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.filter.active{
+  background:#7c5cff;
+  color:white;
+  border-color:#7c5cff;
+}
+
+.countryBox{
+  text-align:center;
+  margin:25px 0 40px;
+}
+
+.countryBox select{
+  padding:13px 18px;
+  background:#111621;
+  color:white;
+  border:1px solid #303646;
+  border-radius:10px;
+  font-size:15px;
+}
+
+.resultsHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.resultsHeader h2{
+  margin:0;
+}
+
+.count{
+  color:#9299aa;
+}
+
+.results{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:18px;
+  padding-bottom:80px;
+}
+
+.card{
+  background:#111621;
+  border:1px solid #252b3a;
+  border-radius:16px;
+  padding:22px;
+}
+
+.card h3{
+  margin:0 0 8px;
+  font-size:21px;
+}
+
+.category{
+  display:inline-block;
+  background:#202638;
+  color:#aeb5c7;
+  padding:5px 9px;
+  border-radius:7px;
+  font-size:12px;
+  margin-bottom:15px;
+}
+
+.card p{
+  color:#aeb5c7;
+  line-height:1.6;
+  margin:8px 0;
+}
+
+.platforms{
+  color:#ddd;
+  font-size:14px;
+}
+
+.visit{
+  display:inline-block;
+  margin-top:15px;
+  background:#7c5cff;
+  color:white;
+  text-decoration:none;
+  padding:11px 16px;
+  border-radius:9px;
+}
+
+.empty{
+  text-align:center;
+  padding:50px 20px;
+  color:#9299aa;
+  background:#111621;
+  border-radius:15px;
+}
+
+footer{
+  border-top:1px solid #202431;
+  padding:25px;
+  text-align:center;
+  color:#777f91;
+}
+
+@media(max-width:600px){
+
+  .hero h1{
+    font-size:36px;
+  }
+
+  .searchBox{
+    flex-direction:column;
+  }
+
+  .searchBox button{
+    width:100%;
+  }
+
+  header{
+    padding:18px 5%;
+  }
+
+  .container{
+    width:92%;
+  }
+}
+</style>
 </head>
 
-<body style="background:#080b12;color:white;font-family:Arial;text-align:center;padding:50px">
+<body>
 
-  <h1 style="font-size:40px">
-    AvailFinder
-  </h1>
+<header>
+  <div class="logo">Avail<span>Finder</span></div>
+</header>
 
-  <p style="color:#aaa">
-    Website test is working.
+<section class="hero">
+
+  <h1>Find Where It's Available</h1>
+
+  <p>
+    Search apps, games, movies, TV shows, music and software.
   </p>
 
-  <input
-    id="search"
-    placeholder="Search Netflix"
-    style="padding:15px;width:250px;border-radius:8px;border:0"
-  >
+  <div class="searchBox">
 
-  <button
-    onclick="searchNow()"
-    style="padding:15px;margin-left:5px;border:0;border-radius:8px;background:#7c5cff;color:white"
-  >
-    Search
-  </button>
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Search Netflix, PUBG, Minecraft..."
+    >
 
-  <div id="result" style="margin-top:40px;font-size:25px"></div>
+    <button onclick="doSearch()">Search</button>
+
+  </div>
+
+</section>
+
+<div class="container">
+
+  <div class="filters">
+
+    <button class="filter active" onclick="setCategory('All',this)">
+      All
+    </button>
+
+    <button class="filter" onclick="setCategory('App',this)">
+      📱 Apps
+    </button>
+
+    <button class="filter" onclick="setCategory('Game',this)">
+      🎮 Games
+    </button>
+
+    <button class="filter" onclick="setCategory('Movie',this)">
+      🎬 Movies
+    </button>
+
+    <button class="filter" onclick="setCategory('TV Show',this)">
+      📺 TV Shows
+    </button>
+
+    <button class="filter" onclick="setCategory('Music',this)">
+      🎵 Music
+    </button>
+
+    <button class="filter" onclick="setCategory('Software',this)">
+      💻 Software
+    </button>
+
+  </div>
+
+  <div class="countryBox">
+
+    <label>🌍 Country: </label>
+
+    <select id="countrySelect" onchange="doSearch()">
+
+      <option value="All">All Countries</option>
+
+      <option value="India">India</option>
+      <option value="USA">USA</option>
+      <option value="UK">UK</option>
+      <option value="Canada">Canada</option>
+      <option value="Australia">Australia</option>
+      <option value="Germany">Germany</option>
+      <option value="Japan">Japan</option>
+      <option value="South Korea">South Korea</option>
+      <option value="Brazil">Brazil</option>
+      <option value="France">France</option>
+
+    </select>
+
+  </div>
+
+  <div class="resultsHeader">
+
+    <h2 id="resultsTitle">
+      All Results
+    </h2>
+
+    <div class="count" id="resultCount">
+      0 results
+    </div>
+
+  </div>
+
+  <div id="results" class="results"></div>
+
+</div>
+
+<footer>
+  © 2026 AvailFinder
+</footer>
+
 
 <script>
 
-function searchNow(){
+const database = [
 
-  let text =
-    document.getElementById("search").value
+  {
+    name:"WhatsApp",
+    category:"App",
+    platform:"Android, iOS, Web",
+    link:"https://www.whatsapp.com/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"Telegram",
+    category:"App",
+    platform:"Android, iOS, Web, Desktop",
+    link:"https://telegram.org/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"Instagram",
+    category:"App",
+    platform:"Android, iOS, Web",
+    link:"https://www.instagram.com/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"Spotify",
+    category:"Music",
+    platform:"Android, iOS, Web, Desktop",
+    link:"https://www.spotify.com/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"Netflix",
+    category:"TV Show",
+    platform:"Android, iOS, Web, Smart TV",
+    link:"https://www.netflix.com/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"Fortnite",
+    category:"Game",
+    platform:"PC, PlayStation, Xbox, Nintendo Switch, Mobile",
+    link:"https://www.fortnite.com/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"Minecraft",
+    category:"Game",
+    platform:"Android, iOS, PC, PlayStation, Xbox, Nintendo Switch",
+    link:"https://www.minecraft.net/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"PUBG Mobile",
+    category:"Game",
+    platform:"Android, iOS",
+    link:"https://www.pubgmobile.com/",
+    countries:["USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"PUBG",
+    category:"Game",
+    platform:"PC, PlayStation, Xbox",
+    link:"https://pubg.com/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"VLC",
+    category:"Software",
+    platform:"Android, iOS, Windows, macOS, Linux",
+    link:"https://www.videolan.org/vlc/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  },
+
+  {
+    name:"Steam",
+    category:"Software",
+    platform:"Windows, macOS, Linux",
+    link:"https://store.steampowered.com/",
+    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+  }
+
+];
+
+
+let selectedCategory = "All";
+
+
+function setCategory(category, button){
+
+  selectedCategory = category;
+
+  document.querySelectorAll(".filter").forEach(function(btn){
+
+    btn.classList.remove("active");
+
+  });
+
+  button.classList.add("active");
+
+  doSearch();
+
+}
+
+
+function doSearch(){
+
+  const input =
+    document.getElementById("searchInput").value
     .toLowerCase()
     .trim();
 
-  if(text === "netflix"){
+  const country =
+    document.getElementById("countrySelect").value;
 
-    document.getElementById("result").innerHTML =
-      "✅ Netflix found!";
+  let results = database.filter(function(item){
 
-  }else if(text === "pubg" || text === "pubg mobile"){
+    const name = item.name.toLowerCase();
 
-    document.getElementById("result").innerHTML =
-      "✅ PUBG Mobile found!";
+    const category = item.category.toLowerCase();
+
+    const platform = item.platform.toLowerCase();
+
+    const searchMatch =
+      input === "" ||
+      name.includes(input) ||
+      category.includes(input) ||
+      platform.includes(input);
+
+    const categoryMatch =
+      selectedCategory === "All" ||
+      item.category === selectedCategory;
+
+    const countryMatch =
+      country === "All" ||
+      item.countries.includes(country);
+
+    return searchMatch && categoryMatch && countryMatch;
+
+  });
+
+
+  displayResults(results, input, country);
+
+}
+
+
+function displayResults(results, searchText, country){
+
+  const resultsBox =
+    document.getElementById("results");
+
+  const title =
+    document.getElementById("resultsTitle");
+
+  const count =
+    document.getElementById("resultCount");
+
+
+  if(searchText !== ""){
+
+    title.textContent =
+      'Results for "' + searchText + '"';
+
+  }else if(selectedCategory !== "All"){
+
+    title.textContent =
+      selectedCategory + " Results";
 
   }else{
 
-    document.getElementById("result").innerHTML =
-      "❌ No result for: " + text;
+    title.textContent =
+      "All Results";
 
   }
 
+
+  count.textContent =
+    results.length + " result" +
+    (results.length === 1 ? "" : "s");
+
+
+  if(results.length === 0){
+
+    resultsBox.innerHTML = `
+      <div class="empty">
+        <h3>No results found</h3>
+        <p>Try another search, category or country.</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  resultsBox.innerHTML = results.map(function(item){
+
+    return `
+
+      <div class="card">
+
+        <div class="category">
+          ${item.category}
+        </div>
+
+        <h3>
+          ${item.name}
+        </h3>
+
+        <p>
+          🌍 Available in:
+          ${item.countries.join(", ")}
+        </p>
+
+        <p class="platforms">
+          💻 Platforms:
+          ${item.platform}
+        </p>
+
+        <a
+          class="visit"
+          href="${item.link}"
+          target="_blank"
+          rel="noopener"
+        >
+          Official Source →
+        </a>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+
+  document.getElementById("results").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
 }
+
+
+document.getElementById("searchInput").addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Enter"){
+
+      doSearch();
+
+    }
+
+  }
+);
+
+
+// Show all items when page opens
+displayResults(database,"","All");
 
 </script>
 
