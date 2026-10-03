@@ -1,28 +1,195 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AvailFinder</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AvailFinder — Find Where Anything Is Available</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1020;
+  color: white;
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #5ee7ff;
+}
+
+.hero {
+  text-align: center;
+  padding: 55px 20px 35px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: #b8c0d4;
+  font-size: 17px;
+}
+
+.search-box {
+  max-width: 650px;
+  margin: 30px auto;
+  display: flex;
+  gap: 10px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 17px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.search-box button {
+  padding: 17px 22px;
+  border: none;
+  border-radius: 12px;
+  background: #5ee7ff;
+  color: #071018;
+  font-weight: bold;
+}
+
+.categories {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.categories h2 {
+  text-align: center;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.category {
+  background: #151c31;
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.info {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 25px;
+  text-align: center;
+}
+
+.info p {
+  color: #b8c0d4;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #77809a;
+}
+
+@media (min-width: 700px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <h1>🌍 AvailFinder</h1>
+<header>
+  <div class="logo">🌍 Avail<span>Finder</span></div>
+</header>
 
-  <h2>Find where anything is available.</h2>
+<section class="hero">
 
-  <p>Search for apps, games, movies, TV shows, music and software.</p>
+  <h1>Find Where Anything Is Available</h1>
 
-  <input type="text" placeholder="Search something...">
+  <p>
+    Search apps, games, movies, TV shows, music and software.
+  </p>
 
-  <h3>Explore</h3>
+  <div class="search-box">
 
-  <button>📱 Apps</button>
-  <button>🎮 Games</button>
-  <button>🎬 Movies</button>
-  <button>📺 TV Shows</button>
-  <button>🎵 Music</button>
-  <button>💻 Software</button>
+    <input
+      type="text"
+      placeholder="Search apps, games, movies..."
+    >
+
+    <button>Search</button>
+
+  </div>
+
+</section>
+
+<section class="categories">
+
+  <h2>Explore Categories</h2>
+
+  <div class="category-grid">
+
+    <div class="category">📱 Apps</div>
+
+    <div class="category">🎮 Games</div>
+
+    <div class="category">🎬 Movies</div>
+
+    <div class="category">📺 TV Shows</div>
+
+    <div class="category">🎵 Music</div>
+
+    <div class="category">💻 Software</div>
+
+  </div>
+
+</section>
+
+<section class="info">
+
+  <h2>How AvailFinder Works</h2>
+
+  <p>
+    Search for something you want to find.
+    Choose your country and discover where it is officially available.
+  </p>
+
+  <p>
+    AvailFinder helps you find legitimate stores,
+    platforms and official sources.
+  </p>
+
+</section>
+
+<footer>
+
+  © 2026 AvailFinder
+
+</footer>
 
 </body>
 </html>
