@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>AvailFinder — Find Where Anything Is Available</title>
 
@@ -12,22 +18,31 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   background: #080b12;
   color: #ffffff;
 }
 
+
+/* =========================
+   HEADER
+========================= */
+
 header {
   text-align: center;
-  padding: 55px 20px 30px;
+  padding: 55px 20px 35px;
 }
 
 .logo {
-  font-size: 42px;
+  font-size: 44px;
   font-weight: 800;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
 }
 
 .logo span {
@@ -40,19 +55,34 @@ header {
   margin-top: 10px;
 }
 
+
+/* =========================
+   SEARCH
+========================= */
+
 .search-area {
-  max-width: 850px;
+  max-width: 900px;
   margin: auto;
-  padding: 10px 20px 30px;
+  padding: 10px 20px 25px;
 }
 
 .search-row {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
-input {
+.search-box {
+  position: relative;
   flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #7d8799;
 }
 
 input,
@@ -67,17 +97,32 @@ select {
   outline: none;
 }
 
+.search-box input {
+  padding-left: 48px;
+}
+
+input::placeholder {
+  color: #6f7889;
+}
+
 input:focus,
 select:focus {
   border-color: #5eead4;
+  box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.08);
 }
 
 select {
-  max-width: 190px;
+  max-width: 200px;
+  cursor: pointer;
 }
 
+
+/* =========================
+   CATEGORIES
+========================= */
+
 .categories {
-  max-width: 850px;
+  max-width: 900px;
   margin: auto;
   padding: 0 20px 30px;
 }
@@ -97,11 +142,12 @@ select {
 .category {
   background: #111722;
   border: 1px solid #293142;
-  padding: 10px 14px;
+  padding: 10px 15px;
   border-radius: 30px;
   color: #d1d5db;
   cursor: pointer;
   transition: 0.2s;
+  user-select: none;
 }
 
 .category:hover {
@@ -111,15 +157,43 @@ select {
 
 .category.active {
   background: #5eead4;
-  color: #071014;
   border-color: #5eead4;
+  color: #071014;
+  font-weight: bold;
 }
 
-.results {
-  max-width: 850px;
+
+/* =========================
+   RESULTS HEADER
+========================= */
+
+.results-area {
+  max-width: 900px;
   margin: auto;
-  padding: 10px 20px 60px;
+  padding: 5px 20px 60px;
 }
+
+.results-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.results-title {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.result-count {
+  color: #6f7889;
+  font-size: 13px;
+}
+
+
+/* =========================
+   RESULT CARD
+========================= */
 
 .result-card {
   background: #111722;
@@ -127,6 +201,19 @@ select {
   border-radius: 18px;
   padding: 22px;
   margin-bottom: 15px;
+  transition: 0.2s;
+}
+
+.result-card:hover {
+  border-color: #3b465b;
+  transform: translateY(-1px);
+}
+
+.result-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: flex-start;
 }
 
 .result-card h2 {
@@ -141,43 +228,113 @@ select {
   padding: 5px 9px;
   border-radius: 7px;
   font-size: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
-.info {
-  color: #b8c0ce;
-  margin: 8px 0;
+
+/* =========================
+   STATUS BADGE
+========================= */
+
+.status {
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
-.available {
+.status.available {
+  background: rgba(74, 222, 128, 0.12);
   color: #4ade80;
-  font-weight: bold;
+  border: 1px solid rgba(74, 222, 128, 0.25);
 }
 
-.unavailable {
+.status.unavailable {
+  background: rgba(248, 113, 113, 0.10);
   color: #f87171;
-  font-weight: bold;
+  border: 1px solid rgba(248, 113, 113, 0.25);
 }
+
+
+/* =========================
+   RESULT INFORMATION
+========================= */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.info-box {
+  background: #0c111a;
+  border: 1px solid #202938;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.info-title {
+  color: #697386;
+  font-size: 11px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  color: #d7dce5;
+  font-size: 14px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
 
 .official {
   display: inline-block;
-  margin-top: 15px;
-  padding: 11px 17px;
+  margin-top: 17px;
+  padding: 12px 18px;
   border-radius: 10px;
   background: #5eead4;
   color: #071014;
   text-decoration: none;
   font-weight: bold;
+  font-size: 14px;
+  transition: 0.2s;
 }
+
+.official:hover {
+  opacity: 0.88;
+}
+
+
+/* =========================
+   EMPTY / LOADING
+========================= */
 
 .empty {
   text-align: center;
   color: #6b7280;
-  padding: 35px 10px;
+  padding: 45px 15px;
+  line-height: 1.6;
 }
 
+.loading {
+  text-align: center;
+  color: #9ca3af;
+  padding: 40px;
+}
+
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
 .how {
-  max-width: 850px;
+  max-width: 900px;
   margin: 0 auto 50px;
   padding: 0 20px;
 }
@@ -186,7 +343,7 @@ select {
   background: #0f141e;
   border: 1px solid #293142;
   border-radius: 18px;
-  padding: 25px;
+  padding: 27px;
 }
 
 .how h2 {
@@ -198,22 +355,36 @@ select {
   line-height: 1.6;
 }
 
+
+/* =========================
+   FOOTER
+========================= */
+
 footer {
   text-align: center;
   border-top: 1px solid #1e2634;
-  padding: 25px;
+  padding: 28px 20px;
   color: #626b7b;
   font-size: 13px;
 }
 
-@media (max-width: 600px) {
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
 
   header {
     padding-top: 40px;
   }
 
   .logo {
-    font-size: 34px;
+    font-size: 35px;
+  }
+
+  .tagline {
+    font-size: 15px;
   }
 
   .search-row {
@@ -224,14 +395,49 @@ footer {
     max-width: 100%;
   }
 
+  .result-top {
+    flex-direction: column;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 380px) {
+
+  .logo {
+    font-size: 31px;
+  }
+
+  .result-card {
+    padding: 17px;
+  }
+
+  .category {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
@@ -247,18 +453,35 @@ footer {
 
 
 
+<!-- =========================
+     SEARCH
+========================= -->
+
 <div class="search-area">
 
   <div class="search-row">
 
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search apps, games, movies, music..."
-      autocomplete="off"
-    >
+    <div class="search-box">
 
-    <select id="countrySelect">
+      <div class="search-icon">
+        🔍
+      </div>
+
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search apps, games, movies..."
+        aria-label="Search AvailFinder"
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <select
+      id="countrySelect"
+      aria-label="Select country"
+    >
 
       <option value="India">🇮🇳 India</option>
 
@@ -288,6 +511,10 @@ footer {
 
 
 
+<!-- =========================
+     CATEGORIES
+========================= -->
+
 <div class="categories">
 
   <div class="category-title">
@@ -296,6 +523,7 @@ footer {
 
 
   <div class="category-list">
+
 
     <div
       class="category active"
@@ -352,24 +580,55 @@ footer {
       💻 Software
     </div>
 
+
   </div>
 
 </div>
 
 
 
-<div
-  class="results"
-  id="results"
->
+<!-- =========================
+     RESULTS
+========================= -->
 
-  <div class="empty">
-    🔎 Search for something to see where it is available.
+<div class="results-area">
+
+  <div class="results-top">
+
+    <div
+      class="results-title"
+      id="resultsTitle"
+    >
+      Search results
+    </div>
+
+    <div
+      class="result-count"
+      id="resultCount"
+    >
+    </div>
+
+  </div>
+
+
+  <div id="results">
+
+    <div class="empty">
+
+      🔎 Search for something to find
+      where it is available.
+
+    </div>
+
   </div>
 
 </div>
 
 
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
 
 <section class="how">
 
@@ -381,12 +640,17 @@ footer {
 
     <p>
       Search for an app, game, movie, TV show,
-      music service or software and select a country.
+      music service or software.
     </p>
 
     <p>
-      AvailFinder shows the platform and an official
-      source where you can check the service.
+      Select a country to see the availability
+      information stored in AvailFinder.
+    </p>
+
+    <p>
+      Use the official source button to visit
+      the service's official website.
     </p>
 
   </div>
@@ -394,6 +658,10 @@ footer {
 </section>
 
 
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
@@ -406,6 +674,10 @@ footer {
 <script>
 
 
+/* =========================
+   VARIABLES
+========================= */
+
 let database = [];
 
 let currentCategory = "";
@@ -413,28 +685,60 @@ let currentCategory = "";
 
 
 const searchInput =
-  document.getElementById("searchInput");
+  document.getElementById(
+    "searchInput"
+  );
 
 
 const countrySelect =
-  document.getElementById("countrySelect");
+  document.getElementById(
+    "countrySelect"
+  );
 
 
 const results =
-  document.getElementById("results");
+  document.getElementById(
+    "results"
+  );
+
+
+const resultCount =
+  document.getElementById(
+    "resultCount"
+  );
+
+
+const resultsTitle =
+  document.getElementById(
+    "resultsTitle"
+  );
 
 
 
-/* LOAD DATABASE */
+/* =========================
+   LOAD DATABASE
+========================= */
+
+results.innerHTML = `
+
+  <div class="loading">
+
+    ⏳ Loading AvailFinder...
+
+  </div>
+
+`;
+
 
 fetch("./data.json")
+
 
 .then(function(response) {
 
   if (!response.ok) {
 
     throw new Error(
-      "Could not load database"
+      "Could not load data.json"
     );
 
   }
@@ -449,9 +753,22 @@ fetch("./data.json")
   database = data;
 
   console.log(
-    "AvailFinder database loaded:",
-    database.length
+    "Database loaded:",
+    database.length,
+    "items"
   );
+
+
+  results.innerHTML = `
+
+    <div class="empty">
+
+      🔎 Search for something to find
+      where it is available.
+
+    </div>
+
+  `;
 
 })
 
@@ -460,15 +777,16 @@ fetch("./data.json")
 
   console.error(error);
 
+
   results.innerHTML = `
 
     <div class="empty">
 
-      ❌ Database could not be loaded.
+      ❌ Could not load the database.
 
       <br><br>
 
-      Please try refreshing the page.
+      Please refresh the website.
 
     </div>
 
@@ -478,7 +796,9 @@ fetch("./data.json")
 
 
 
-/* SEARCH */
+/* =========================
+   SEARCH FUNCTION
+========================= */
 
 function searchDatabase() {
 
@@ -493,55 +813,58 @@ function searchDatabase() {
     countrySelect.value;
 
 
-  let matches = database;
+  let matches =
+    [...database];
 
 
 
-  /* CATEGORY FILTER */
+  /* CATEGORY */
 
   if (currentCategory !== "") {
 
-    matches = matches.filter(function(item) {
+    matches =
+      matches.filter(function(item) {
 
-      return item.category
-        .toLowerCase()
-        .includes(
-          currentCategory.toLowerCase()
-        );
+        return item.category
+          .toLowerCase()
+          .includes(
+            currentCategory.toLowerCase()
+          );
 
-    });
+      });
 
   }
 
 
 
-  /* SEARCH FILTER */
+  /* SEARCH */
 
   if (searchText !== "") {
 
-    matches = matches.filter(function(item) {
+    matches =
+      matches.filter(function(item) {
 
-      return (
+        return (
 
-        item.name
-          .toLowerCase()
-          .includes(searchText)
+          item.name
+            .toLowerCase()
+            .includes(searchText)
 
-        ||
+          ||
 
-        item.category
-          .toLowerCase()
-          .includes(searchText)
+          item.category
+            .toLowerCase()
+            .includes(searchText)
 
-        ||
+          ||
 
-        item.platform
-          .toLowerCase()
-          .includes(searchText)
+          item.platform
+            .toLowerCase()
+            .includes(searchText)
 
-      );
+        );
 
-    });
+      });
 
   }
 
@@ -554,11 +877,17 @@ function searchDatabase() {
     currentCategory === ""
   ) {
 
+    resultsTitle.textContent =
+      "Search results";
+
+    resultCount.textContent = "";
+
+
     results.innerHTML = `
 
       <div class="empty">
 
-        🔎 Search for something to see
+        🔎 Search for something to find
         where it is available.
 
       </div>
@@ -575,15 +904,22 @@ function searchDatabase() {
 
   if (matches.length === 0) {
 
+    resultsTitle.textContent =
+      "No results";
+
+
+    resultCount.textContent = "";
+
+
     results.innerHTML = `
 
       <div class="empty">
 
-        ❌ No results found.
+        ❌ Nothing found.
 
         <br><br>
 
-        Try another name or category.
+        Try another search or category.
 
       </div>
 
@@ -595,22 +931,39 @@ function searchDatabase() {
 
 
 
-  /* DISPLAY RESULTS */
+  /* RESULT HEADER */
+
+  resultsTitle.textContent =
+    "Results";
+
+
+  resultCount.textContent =
+    matches.length +
+    (matches.length === 1
+      ? " result"
+      : " results");
+
+
 
   results.innerHTML = "";
 
 
 
+  /* CREATE CARDS */
+
   matches.forEach(function(item) {
 
 
     const available =
+      Array.isArray(item.countries) &&
       item.countries.includes(country);
 
 
 
     const card =
-      document.createElement("div");
+      document.createElement(
+        "article"
+      );
 
 
     card.className =
@@ -618,51 +971,119 @@ function searchDatabase() {
 
 
 
+    /* SAFE LAST CHECKED */
+
+    const lastChecked =
+      item.lastChecked
+        ? item.lastChecked
+        : "Not available";
+
+
+
     card.innerHTML = `
 
-      <div class="category-label">
+      <div class="result-top">
 
-        ${item.category}
+
+        <div>
+
+          <div class="category-label">
+
+            ${item.category}
+
+          </div>
+
+
+          <h2>
+
+            ${item.name}
+
+          </h2>
+
+        </div>
+
+
+        <div
+          class="status ${
+            available
+              ? "available"
+              : "unavailable"
+          }"
+        >
+
+          ${
+            available
+              ? "✓ Available"
+              : "✕ Not listed"
+          }
+
+        </div>
+
+
+      </div>
+
+
+
+      <div class="info-grid">
+
+
+        <div class="info-box">
+
+          <div class="info-title">
+            Country
+          </div>
+
+          <div class="info-value">
+            🌍 ${country}
+          </div>
+
+        </div>
+
+
+
+        <div class="info-box">
+
+          <div class="info-title">
+            Platform
+          </div>
+
+          <div class="info-value">
+            📱 ${item.platform}
+          </div>
+
+        </div>
+
+
+
+        <div class="info-box">
+
+          <div class="info-title">
+            Last checked
+          </div>
+
+          <div class="info-value">
+            🕐 ${lastChecked}
+          </div>
+
+        </div>
+
+
+
+        <div class="info-box">
+
+          <div class="info-title">
+            Category
+          </div>
+
+          <div class="info-value">
+            📂 ${item.category}
+          </div>
+
+        </div>
+
 
       </div>
 
-
-      <h2>
-
-        ${item.name}
-
-      </h2>
-
-
-      <div class="info">
-
-        🌍 Country: ${country}
-
-      </div>
-
-
-      <div
-        class="${
-          available
-            ? "available"
-            : "unavailable"
-        }"
-      >
-
-        ${
-          available
-            ? "✅ Available"
-            : "❌ Not currently listed"
-        }
-
-      </div>
-
-
-      <div class="info">
-
-        📱 Platform: ${item.platform}
-
-      </div>
 
 
       <a
@@ -672,11 +1093,12 @@ function searchDatabase() {
         rel="noopener noreferrer"
       >
 
-        Official Source →
+        Visit Official Source →
 
       </a>
 
     `;
+
 
 
     results.appendChild(card);
@@ -688,7 +1110,9 @@ function searchDatabase() {
 
 
 
-/* CATEGORY BUTTON */
+/* =========================
+   CATEGORY FILTER
+========================= */
 
 function filterCategory(
   category,
@@ -732,13 +1156,14 @@ function filterCategory(
 
 
 
-/* SEARCH EVENTS */
+/* =========================
+   EVENTS
+========================= */
 
 searchInput.addEventListener(
   "input",
   searchDatabase
 );
-
 
 
 countrySelect.addEventListener(
@@ -751,4 +1176,5 @@ countrySelect.addEventListener(
 
 
 </body>
+
 </html>
