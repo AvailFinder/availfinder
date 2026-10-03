@@ -148,25 +148,17 @@ body {
 .search-button {
   border: 0;
   border-radius: 12px;
-  padding: 0 20px;
+  padding: 0 24px;
   background: linear-gradient(135deg,#6ea8ff,#8d72ff);
   color: white;
   font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
   white-space: nowrap;
 }
 
 .search-button:hover {
   opacity: 0.9;
-}
-
-/* SEARCH HINT */
-
-.search-hint {
-  text-align: center;
-  color: #697386;
-  font-size: 12px;
-  margin-top: 12px;
 }
 
 /* GENERAL SECTIONS */
@@ -540,10 +532,18 @@ footer {
 
 <header class="navbar">
   <div class="container nav">
-    <div class="logo">Avail<span>Finder</span></div>
-    <div class="nav-badge">Availability Search</div>
+
+    <div class="logo">
+      Avail<span>Finder</span>
+    </div>
+
+    <div class="nav-badge">
+      Availability Search
+    </div>
+
   </div>
 </header>
+
 
 <main class="container">
 
@@ -596,14 +596,13 @@ footer {
 
       </select>
 
-      <button class="search-button" onclick="searchItems()">
-        Find Availability
+      <button
+        class="search-button"
+        onclick="searchItems()"
+      >
+        Search
       </button>
 
-    </div>
-
-    <div class="search-hint">
-      Press Enter to search
     </div>
 
   </section>
@@ -616,14 +615,19 @@ footer {
     <div class="results-heading">
 
       <div>
+
         <h2 id="resultsTitle">
           Search results
         </h2>
 
         <p id="resultsCount"></p>
+
       </div>
 
-      <div id="resultsCountry" class="results-country">
+      <div
+        id="resultsCountry"
+        class="results-country"
+      >
         🌍 India
       </div>
 
@@ -689,7 +693,7 @@ footer {
   </section>
 
 
-  <!-- HOMEPAGE CONTENT -->
+  <!-- POPULAR SEARCHES -->
 
   <section class="section">
 
@@ -703,27 +707,45 @@ footer {
 
     <div class="popular-searches">
 
-      <button class="quick-button" onclick="quickSearch('WhatsApp')">
+      <button
+        class="quick-button"
+        onclick="quickSearch('WhatsApp')"
+      >
         WhatsApp
       </button>
 
-      <button class="quick-button" onclick="quickSearch('Spotify')">
+      <button
+        class="quick-button"
+        onclick="quickSearch('Spotify')"
+      >
         Spotify
       </button>
 
-      <button class="quick-button" onclick="quickSearch('Minecraft')">
+      <button
+        class="quick-button"
+        onclick="quickSearch('Minecraft')"
+      >
         Minecraft
       </button>
 
-      <button class="quick-button" onclick="quickSearch('Fortnite')">
+      <button
+        class="quick-button"
+        onclick="quickSearch('Fortnite')"
+      >
         Fortnite
       </button>
 
-      <button class="quick-button" onclick="quickSearch('Netflix')">
+      <button
+        class="quick-button"
+        onclick="quickSearch('Netflix')"
+      >
         Netflix
       </button>
 
-      <button class="quick-button" onclick="quickSearch('Telegram')">
+      <button
+        class="quick-button"
+        onclick="quickSearch('Telegram')"
+      >
         Telegram
       </button>
 
@@ -742,37 +764,60 @@ footer {
 
     <div class="category-grid">
 
-      <div class="category-card" onclick="categorySearch('App')">
+      <div
+        class="category-card"
+        onclick="categorySearch('App')"
+      >
         <div class="category-icon">📱</div>
         <h3>Apps</h3>
         <p>Find apps by country and platform.</p>
       </div>
 
-      <div class="category-card" onclick="categorySearch('Game')">
+
+      <div
+        class="category-card"
+        onclick="categorySearch('Game')"
+      >
         <div class="category-icon">🎮</div>
         <h3>Games</h3>
         <p>Discover where games are available.</p>
       </div>
 
-      <div class="category-card" onclick="categorySearch('Movie')">
+
+      <div
+        class="category-card"
+        onclick="categorySearch('Movie')"
+      >
         <div class="category-icon">🎬</div>
         <h3>Movies</h3>
         <p>Check movie availability by region.</p>
       </div>
 
-      <div class="category-card" onclick="categorySearch('TV Show')">
+
+      <div
+        class="category-card"
+        onclick="categorySearch('TV Show')"
+      >
         <div class="category-icon">📺</div>
         <h3>TV Shows</h3>
         <p>Find streaming availability.</p>
       </div>
 
-      <div class="category-card" onclick="categorySearch('Music')">
+
+      <div
+        class="category-card"
+        onclick="categorySearch('Music')"
+      >
         <div class="category-icon">🎵</div>
         <h3>Music</h3>
         <p>Find music services and platforms.</p>
       </div>
 
-      <div class="category-card" onclick="categorySearch('Software')">
+
+      <div
+        class="category-card"
+        onclick="categorySearch('Software')"
+      >
         <div class="category-icon">💻</div>
         <h3>Software</h3>
         <p>Find software and official sources.</p>
@@ -793,35 +838,59 @@ footer {
 
     <div class="country-grid">
 
-      <button class="country-button" onclick="setCountry('India')">
+      <button
+        class="country-button"
+        onclick="setCountry('India')"
+      >
         🇮🇳 India
       </button>
 
-      <button class="country-button" onclick="setCountry('USA')">
+      <button
+        class="country-button"
+        onclick="setCountry('USA')"
+      >
         🇺🇸 USA
       </button>
 
-      <button class="country-button" onclick="setCountry('UK')">
+      <button
+        class="country-button"
+        onclick="setCountry('UK')"
+      >
         🇬🇧 UK
       </button>
 
-      <button class="country-button" onclick="setCountry('Canada')">
+      <button
+        class="country-button"
+        onclick="setCountry('Canada')"
+      >
         🇨🇦 Canada
       </button>
 
-      <button class="country-button" onclick="setCountry('Japan')">
+      <button
+        class="country-button"
+        onclick="setCountry('Japan')"
+      >
         🇯🇵 Japan
       </button>
 
-      <button class="country-button" onclick="setCountry('Germany')">
+      <button
+        class="country-button"
+        onclick="setCountry('Germany')"
+      >
         🇩🇪 Germany
       </button>
 
-      <button class="country-button" onclick="setCountry('France')">
+      <button
+        class="country-button"
+        onclick="setCountry('France')"
+      >
         🇫🇷 France
       </button>
 
-      <button class="country-button" onclick="setCountry('Australia')">
+      <button
+        class="country-button"
+        onclick="setCountry('Australia')"
+      >
         🇦🇺 Australia
       </button>
 
@@ -841,28 +910,54 @@ footer {
     <div class="steps">
 
       <div class="step">
-        <div class="step-number">01 — SEARCH</div>
-        <h3>Search anything</h3>
+
+        <div class="step-number">
+          01 — SEARCH
+        </div>
+
+        <h3>
+          Search anything
+        </h3>
+
         <p>
           Enter the name of an app, game, movie,
           show, music service or software.
         </p>
+
       </div>
 
+
       <div class="step">
-        <div class="step-number">02 — SELECT</div>
-        <h3>Choose a country</h3>
+
+        <div class="step-number">
+          02 — SELECT
+        </div>
+
+        <h3>
+          Choose a country
+        </h3>
+
         <p>
           Select the country you want to check.
         </p>
+
       </div>
 
+
       <div class="step">
-        <div class="step-number">03 — DISCOVER</div>
-        <h3>See availability</h3>
+
+        <div class="step-number">
+          03 — DISCOVER
+        </div>
+
+        <h3>
+          See availability
+        </h3>
+
         <p>
           View the available platform and official source.
         </p>
+
       </div>
 
     </div>
@@ -873,9 +968,11 @@ footer {
 
 
 <footer>
+
   <div class="container">
     © 2026 AvailFinder · Official availability information only
   </div>
+
 </footer>
 
 
@@ -917,61 +1014,108 @@ fetch("./data.json")
 function searchItems() {
 
   const input =
-    document.getElementById("searchInput").value.trim();
+    document
+      .getElementById("searchInput")
+      .value
+      .trim();
 
-  const searchText = input.toLowerCase();
+  const searchText =
+    input.toLowerCase();
 
   const country =
-    document.getElementById("countrySelect").value;
+    document
+      .getElementById("countrySelect")
+      .value;
 
 
   if (!input) {
 
-    document.getElementById("resultsSection").style.display = "none";
+    document
+      .getElementById("resultsSection")
+      .style.display = "none";
 
     return;
+
   }
 
 
-  const results = database.filter(item => {
+  const results =
+    database.filter(item => {
 
-    const matchesSearch =
-      item.name.toLowerCase().includes(searchText) ||
-      item.category.toLowerCase().includes(searchText) ||
-      item.platform.toLowerCase().includes(searchText);
+      const matchesSearch =
 
-    const matchesCategory =
-      currentCategory === "All" ||
-      item.category === currentCategory;
+        item.name
+          .toLowerCase()
+          .includes(searchText)
 
-    return matchesSearch && matchesCategory;
+        ||
 
-  });
+        item.category
+          .toLowerCase()
+          .includes(searchText)
+
+        ||
+
+        item.platform
+          .toLowerCase()
+          .includes(searchText);
 
 
-  showResults(results, country, input);
+      const matchesCategory =
+
+        currentCategory === "All"
+
+        ||
+
+        item.category === currentCategory;
+
+
+      return matchesSearch && matchesCategory;
+
+    });
+
+
+  showResults(
+    results,
+    country,
+    input
+  );
 
 }
 
 
 /* SHOW RESULTS */
 
-function showResults(results, country, searchText) {
+function showResults(
+  results,
+  country,
+  searchText
+) {
 
   const section =
-    document.getElementById("resultsSection");
+    document.getElementById(
+      "resultsSection"
+    );
 
   const resultsBox =
-    document.getElementById("results");
+    document.getElementById(
+      "results"
+    );
 
   const count =
-    document.getElementById("resultsCount");
+    document.getElementById(
+      "resultsCount"
+    );
 
   const title =
-    document.getElementById("resultsTitle");
+    document.getElementById(
+      "resultsTitle"
+    );
 
   const countryBox =
-    document.getElementById("resultsCountry");
+    document.getElementById(
+      "resultsCountry"
+    );
 
 
   section.style.display = "block";
@@ -995,7 +1139,9 @@ function showResults(results, country, searchText) {
 
       <div class="empty">
 
-        <h3>No results found</h3>
+        <h3>
+          No results found
+        </h3>
 
         <p>
           We couldn't find "${searchText}".
@@ -1011,81 +1157,84 @@ function showResults(results, country, searchText) {
 
   } else {
 
-    resultsBox.innerHTML = results.map(item => {
+    resultsBox.innerHTML =
+      results.map(item => {
 
-      const available =
-        item.countries &&
-        item.countries.includes(country);
+        const available =
+          item.countries &&
+          item.countries.includes(country);
 
 
-      return `
+        return `
 
-        <div class="result-card">
+          <div class="result-card">
 
-          <div class="result-header">
+            <div class="result-header">
 
-            <div>
+              <div>
 
-              <div class="result-title">
-                ${item.name}
+                <div class="result-title">
+                  ${item.name}
+                </div>
+
+                <div class="result-category">
+                  ${item.category}
+                </div>
+
               </div>
 
-              <div class="result-category">
-                ${item.category}
+
+              <div class="${available
+                ? "available"
+                : "not-available"}">
+
+                ${available
+                  ? "✓ Available"
+                  : "✕ Not listed"}
+
               </div>
 
             </div>
 
 
-            <div class="${available ? "available" : "not-available"}">
+            <div class="result-info">
 
-              ${available
-                ? "✓ Available"
-                : "✕ Not listed"}
+              <div class="info">
+                🌍 ${country}
+              </div>
+
+              <div class="info">
+                📱 ${item.platform}
+              </div>
+
+              <div class="info">
+                🕒 Checked ${item.lastChecked || "N/A"}
+              </div>
 
             </div>
+
+
+            <a
+              class="source-link"
+              href="${item.link}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit official source →
+            </a>
 
           </div>
 
+        `;
 
-          <div class="result-info">
-
-            <div class="info">
-              🌍 ${country}
-            </div>
-
-            <div class="info">
-              📱 ${item.platform}
-            </div>
-
-            <div class="info">
-              🕒 Checked ${item.lastChecked || "N/A"}
-            </div>
-
-          </div>
-
-
-          <a
-            class="source-link"
-            href="${item.link}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit official source →
-          </a>
-
-        </div>
-
-      `;
-
-    }).join("");
+      }).join("");
 
   }
 
 
   /*
-    IMPORTANT:
-    Move the user directly to the results.
+    Automatically take the user
+    directly to the results.
   */
 
   setTimeout(() => {
@@ -1104,7 +1253,10 @@ function showResults(results, country, searchText) {
 
 function quickSearch(name) {
 
-  document.getElementById("searchInput").value = name;
+  document
+    .getElementById("searchInput")
+    .value = name;
+
 
   currentCategory = "All";
 
@@ -1121,66 +1273,7 @@ function categorySearch(category) {
 
   currentCategory = category;
 
+
   const country =
-    document.getElementById("countrySelect").value;
-
-
-  const results =
-    database.filter(item =>
-      item.category === category
-    );
-
-
-  document.getElementById("searchInput").value = "";
-
-
-  const section =
-    document.getElementById("resultsSection");
-
-  section.style.display = "block";
-
-
-  document.getElementById("resultsTitle").textContent =
-    `${category}s`;
-
-  document.getElementById("resultsCount").textContent =
-    `${results.length} result${results.length === 1 ? "" : "s"} found`;
-
-  document.getElementById("resultsCountry").textContent =
-    `🌍 ${country}`;
-
-
-  showResults(
-    results,
-    country,
-    category
-  );
-
-}
-
-
-/* COUNTRY */
-
-function setCountry(country) {
-
-  document.getElementById("countrySelect").value =
-    country;
-
-
-  if (
-    document.getElementById("searchInput")
-      .value.trim()
-  ) {
-
-    searchItems();
-
-  }
-
-}
-
-
-/* CATEGORY FILTER */
-
-function setCategory(category, button) {
-
-  current
+    document
+      .getEleme
