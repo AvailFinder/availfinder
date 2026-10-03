@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AvailFinder — Find Where Anything Is Available</title>
-<meta name="description" content="Search apps, games, movies, TV shows, music and software by country and platform.">
+<meta name="description" content="Find where apps, games, movies, TV shows, music and software are available.">
 
 <style>
 * {
@@ -14,11 +14,15 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   background:
     radial-gradient(circle at 50% -10%, #202a4a 0%, #0b0f19 38%, #070a11 75%);
-  color: #ffffff;
+  color: #fff;
   min-height: 100vh;
 }
 
@@ -30,7 +34,7 @@ body {
 /* NAVBAR */
 
 .navbar {
-  padding: 22px 0;
+  padding: 20px 0;
   border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 
@@ -63,7 +67,7 @@ body {
 
 .hero {
   text-align: center;
-  padding: 75px 0 45px;
+  padding: 65px 0 35px;
 }
 
 .hero-label {
@@ -78,7 +82,7 @@ body {
 }
 
 .hero h1 {
-  font-size: clamp(38px, 8vw, 72px);
+  font-size: clamp(40px, 8vw, 70px);
   line-height: 1;
   letter-spacing: -3px;
   margin-bottom: 20px;
@@ -87,6 +91,7 @@ body {
 .hero h1 span {
   background: linear-gradient(90deg,#6ea8ff,#a98bff);
   -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
 
@@ -101,14 +106,14 @@ body {
 /* SEARCH */
 
 .search-area {
-  margin: 25px auto 55px;
-  max-width: 850px;
+  margin: 25px auto 45px;
+  max-width: 900px;
 }
 
 .search-box {
   display: flex;
   gap: 10px;
-  background: rgba(18,24,38,0.9);
+  background: rgba(18,24,38,0.95);
   padding: 10px;
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.1);
@@ -143,18 +148,28 @@ body {
 .search-button {
   border: 0;
   border-radius: 12px;
-  padding: 0 22px;
+  padding: 0 20px;
   background: linear-gradient(135deg,#6ea8ff,#8d72ff);
   color: white;
   font-weight: 700;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .search-button:hover {
   opacity: 0.9;
 }
 
-/* SECTION */
+/* SEARCH HINT */
+
+.search-hint {
+  text-align: center;
+  color: #697386;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+/* GENERAL SECTIONS */
 
 .section {
   margin: 55px 0;
@@ -255,20 +270,37 @@ body {
 
 #resultsSection {
   display: none;
-  margin-top: 60px;
+  margin-top: 40px;
+  padding: 28px 0 10px;
+  scroll-margin-top: 20px;
 }
 
-.results-top {
+.results-heading {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
+  align-items: flex-end;
   gap: 15px;
+  margin-bottom: 20px;
 }
 
-.results-count {
+.results-heading h2 {
+  font-size: 28px;
+  margin-bottom: 7px;
+}
+
+.results-heading p {
   color: #7f899b;
   font-size: 14px;
+}
+
+.results-country {
+  background: rgba(110,168,255,0.1);
+  border: 1px solid rgba(110,168,255,0.25);
+  color: #a8c8ff;
+  padding: 9px 13px;
+  border-radius: 11px;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 .category-filters {
@@ -297,6 +329,8 @@ body {
   display: grid;
   gap: 13px;
 }
+
+/* RESULT CARD */
 
 .result-card {
   background: linear-gradient(145deg,#111827,#0d1320);
@@ -375,6 +409,8 @@ body {
   text-decoration: underline;
 }
 
+/* EMPTY */
+
 .empty {
   text-align: center;
   padding: 50px 20px;
@@ -382,6 +418,11 @@ body {
   background: #0d1421;
   border: 1px solid #1d283b;
   border-radius: 18px;
+}
+
+.empty h3 {
+  color: #dfe6f2;
+  margin-bottom: 8px;
 }
 
 /* HOW IT WORKS */
@@ -431,7 +472,7 @@ footer {
 @media (max-width: 700px) {
 
   .hero {
-    padding: 55px 0 35px;
+    padding: 50px 0 30px;
   }
 
   .hero h1 {
@@ -446,9 +487,13 @@ footer {
     flex-direction: column;
   }
 
+  .search-box input {
+    width: 100%;
+  }
+
   .country-select,
   .search-button {
-    height: 48px;
+    height: 50px;
     width: 100%;
   }
 
@@ -458,6 +503,11 @@ footer {
 
   .steps {
     grid-template-columns: 1fr;
+  }
+
+  .results-heading {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .result-header {
@@ -470,12 +520,17 @@ footer {
 }
 
 @media (max-width: 430px) {
+
   .category-grid {
     grid-template-columns: 1fr;
   }
 
   .hero h1 {
     font-size: 42px;
+  }
+
+  .results-heading h2 {
+    font-size: 24px;
   }
 }
 </style>
@@ -495,7 +550,10 @@ footer {
   <!-- HERO -->
 
   <section class="hero">
-    <div class="hero-label">🌍 One search. Multiple countries.</div>
+
+    <div class="hero-label">
+      🌍 One search. Multiple countries.
+    </div>
 
     <h1>
       Find where<br>
@@ -506,7 +564,9 @@ footer {
       Search apps, games, movies, TV shows, music and software
       and discover where you can officially access them.
     </p>
+
   </section>
+
 
   <!-- SEARCH -->
 
@@ -522,6 +582,7 @@ footer {
       >
 
       <select id="countrySelect" class="country-select">
+
         <option value="India">🇮🇳 India</option>
         <option value="USA">🇺🇸 USA</option>
         <option value="UK">🇬🇧 UK</option>
@@ -532,21 +593,109 @@ footer {
         <option value="South Korea">🇰🇷 South Korea</option>
         <option value="Brazil">🇧🇷 Brazil</option>
         <option value="France">🇫🇷 France</option>
+
       </select>
 
       <button class="search-button" onclick="searchItems()">
-        Search
+        Find Availability
       </button>
 
     </div>
 
+    <div class="search-hint">
+      Press Enter to search
+    </div>
+
   </section>
 
-  <!-- POPULAR -->
+
+  <!-- RESULTS -->
+
+  <section id="resultsSection">
+
+    <div class="results-heading">
+
+      <div>
+        <h2 id="resultsTitle">
+          Search results
+        </h2>
+
+        <p id="resultsCount"></p>
+      </div>
+
+      <div id="resultsCountry" class="results-country">
+        🌍 India
+      </div>
+
+    </div>
+
+
+    <div class="category-filters">
+
+      <button
+        class="filter-button active"
+        onclick="setCategory('All', this)"
+      >
+        All
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="setCategory('App', this)"
+      >
+        Apps
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="setCategory('Game', this)"
+      >
+        Games
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="setCategory('Movie', this)"
+      >
+        Movies
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="setCategory('TV Show', this)"
+      >
+        TV Shows
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="setCategory('Music', this)"
+      >
+        Music
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="setCategory('Software', this)"
+      >
+        Software
+      </button>
+
+    </div>
+
+
+    <div id="results" class="results"></div>
+
+  </section>
+
+
+  <!-- HOMEPAGE CONTENT -->
 
   <section class="section">
 
-    <h2 class="section-title">Popular searches</h2>
+    <h2 class="section-title">
+      Popular searches
+    </h2>
 
     <p class="section-subtitle">
       Quick access to commonly searched services.
@@ -582,11 +731,14 @@ footer {
 
   </section>
 
+
   <!-- CATEGORIES -->
 
   <section class="section">
 
-    <h2 class="section-title">Explore categories</h2>
+    <h2 class="section-title">
+      Explore categories
+    </h2>
 
     <div class="category-grid">
 
@@ -630,11 +782,14 @@ footer {
 
   </section>
 
+
   <!-- COUNTRIES -->
 
   <section class="section">
 
-    <h2 class="section-title">Popular countries</h2>
+    <h2 class="section-title">
+      Popular countries
+    </h2>
 
     <div class="country-grid">
 
@@ -674,11 +829,14 @@ footer {
 
   </section>
 
+
   <!-- HOW IT WORKS -->
 
   <section class="section">
 
-    <h2 class="section-title">How AvailFinder works</h2>
+    <h2 class="section-title">
+      How AvailFinder works
+    </h2>
 
     <div class="steps">
 
@@ -686,8 +844,8 @@ footer {
         <div class="step-number">01 — SEARCH</div>
         <h3>Search anything</h3>
         <p>
-          Enter the name of an app, game, movie, show,
-          music service or software.
+          Enter the name of an app, game, movie,
+          show, music service or software.
         </p>
       </div>
 
@@ -711,54 +869,8 @@ footer {
 
   </section>
 
-  <!-- RESULTS -->
-
-  <section id="resultsSection">
-
-    <div class="results-top">
-      <div>
-        <h2 class="section-title">Search results</h2>
-        <div id="resultsCount" class="results-count"></div>
-      </div>
-    </div>
-
-    <div class="category-filters">
-
-      <button class="filter-button active" onclick="setCategory('All', this)">
-        All
-      </button>
-
-      <button class="filter-button" onclick="setCategory('App', this)">
-        Apps
-      </button>
-
-      <button class="filter-button" onclick="setCategory('Game', this)">
-        Games
-      </button>
-
-      <button class="filter-button" onclick="setCategory('Movie', this)">
-        Movies
-      </button>
-
-      <button class="filter-button" onclick="setCategory('TV Show', this)">
-        TV Shows
-      </button>
-
-      <button class="filter-button" onclick="setCategory('Music', this)">
-        Music
-      </button>
-
-      <button class="filter-button" onclick="setCategory('Software', this)">
-        Software
-      </button>
-
-    </div>
-
-    <div id="results" class="results"></div>
-
-  </section>
-
 </main>
+
 
 <footer>
   <div class="container">
@@ -766,14 +878,17 @@ footer {
   </div>
 </footer>
 
+
 <script>
 
 let database = [];
 let currentCategory = "All";
 
+
 /* LOAD DATA */
 
 fetch("./data.json")
+
   .then(response => {
 
     if (!response.ok) {
@@ -783,11 +898,13 @@ fetch("./data.json")
     return response.json();
 
   })
+
   .then(data => {
 
     database = data;
 
   })
+
   .catch(error => {
 
     console.error(error);
@@ -800,12 +917,13 @@ fetch("./data.json")
 function searchItems() {
 
   const input =
-    document.getElementById("searchInput").value
-    .trim()
-    .toLowerCase();
+    document.getElementById("searchInput").value.trim();
+
+  const searchText = input.toLowerCase();
 
   const country =
     document.getElementById("countrySelect").value;
+
 
   if (!input) {
 
@@ -814,12 +932,13 @@ function searchItems() {
     return;
   }
 
+
   const results = database.filter(item => {
 
     const matchesSearch =
-      item.name.toLowerCase().includes(input) ||
-      item.category.toLowerCase().includes(input) ||
-      item.platform.toLowerCase().includes(input);
+      item.name.toLowerCase().includes(searchText) ||
+      item.category.toLowerCase().includes(searchText) ||
+      item.platform.toLowerCase().includes(searchText);
 
     const matchesCategory =
       currentCategory === "All" ||
@@ -829,85 +948,15 @@ function searchItems() {
 
   });
 
-  showResults(results, country);
 
-}
-
-
-/* QUICK SEARCH */
-
-function quickSearch(name) {
-
-  document.getElementById("searchInput").value = name;
-
-  searchItems();
-
-  document.getElementById("resultsSection")
-    .scrollIntoView({
-      behavior: "smooth"
-    });
-
-}
-
-
-/* CATEGORY SEARCH */
-
-function categorySearch(category) {
-
-  currentCategory = category;
-
-  document.getElementById("searchInput").value = "";
-
-  const country =
-    document.getElementById("countrySelect").value;
-
-  const results = database.filter(item =>
-    item.category === category
-  );
-
-  showResults(results, country);
-
-  document.getElementById("resultsSection")
-    .scrollIntoView({
-      behavior: "smooth"
-    });
-
-}
-
-
-/* COUNTRY */
-
-function setCountry(country) {
-
-  document.getElementById("countrySelect").value = country;
-
-  if (document.getElementById("searchInput").value.trim()) {
-    searchItems();
-  }
-
-}
-
-
-/* CATEGORY FILTER */
-
-function setCategory(category, button) {
-
-  currentCategory = category;
-
-  document
-    .querySelectorAll(".filter-button")
-    .forEach(btn => btn.classList.remove("active"));
-
-  button.classList.add("active");
-
-  searchItems();
+  showResults(results, country, input);
 
 }
 
 
 /* SHOW RESULTS */
 
-function showResults(results, country) {
+function showResults(results, country, searchText) {
 
   const section =
     document.getElementById("resultsSection");
@@ -918,100 +967,220 @@ function showResults(results, country) {
   const count =
     document.getElementById("resultsCount");
 
+  const title =
+    document.getElementById("resultsTitle");
+
+  const countryBox =
+    document.getElementById("resultsCountry");
+
+
   section.style.display = "block";
 
+
+  title.textContent =
+    `Results for "${searchText}"`;
+
+
   count.textContent =
-    `${results.length} result${results.length === 1 ? "" : "s"} · ${country}`;
+    `${results.length} result${results.length === 1 ? "" : "s"} found`;
+
+
+  countryBox.textContent =
+    `🌍 ${country}`;
+
 
   if (results.length === 0) {
 
     resultsBox.innerHTML = `
+
       <div class="empty">
+
         <h3>No results found</h3>
-        <p style="margin-top:10px;">
-          Try another search, category or country.
+
+        <p>
+          We couldn't find "${searchText}".
         </p>
+
+        <p style="margin-top:8px;">
+          Try another name or category.
+        </p>
+
       </div>
+
     `;
 
-    return;
+  } else {
+
+    resultsBox.innerHTML = results.map(item => {
+
+      const available =
+        item.countries &&
+        item.countries.includes(country);
+
+
+      return `
+
+        <div class="result-card">
+
+          <div class="result-header">
+
+            <div>
+
+              <div class="result-title">
+                ${item.name}
+              </div>
+
+              <div class="result-category">
+                ${item.category}
+              </div>
+
+            </div>
+
+
+            <div class="${available ? "available" : "not-available"}">
+
+              ${available
+                ? "✓ Available"
+                : "✕ Not listed"}
+
+            </div>
+
+          </div>
+
+
+          <div class="result-info">
+
+            <div class="info">
+              🌍 ${country}
+            </div>
+
+            <div class="info">
+              📱 ${item.platform}
+            </div>
+
+            <div class="info">
+              🕒 Checked ${item.lastChecked || "N/A"}
+            </div>
+
+          </div>
+
+
+          <a
+            class="source-link"
+            href="${item.link}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit official source →
+          </a>
+
+        </div>
+
+      `;
+
+    }).join("");
+
   }
 
-  resultsBox.innerHTML = results.map(item => {
 
-    const available =
-      item.countries &&
-      item.countries.includes(country);
+  /*
+    IMPORTANT:
+    Move the user directly to the results.
+  */
 
-    return `
+  setTimeout(() => {
 
-      <div class="result-card">
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
 
-        <div class="result-header">
-
-          <div>
-            <div class="result-title">
-              ${item.name}
-            </div>
-
-            <div class="result-category">
-              ${item.category}
-            </div>
-          </div>
-
-          <div class="${available ? "available" : "not-available"}">
-            ${available ? "✓ Available" : "✕ Not listed"}
-          </div>
-
-        </div>
-
-        <div class="result-info">
-
-          <div class="info">
-            🌍 ${country}
-          </div>
-
-          <div class="info">
-            📱 ${item.platform}
-          </div>
-
-          <div class="info">
-            🕒 Checked ${item.lastChecked || "N/A"}
-          </div>
-
-        </div>
-
-        <a
-          class="source-link"
-          href="${item.link}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Visit official source →
-        </a>
-
-      </div>
-
-    `;
-
-  }).join("");
+  }, 100);
 
 }
 
 
-/* ENTER KEY */
+/* QUICK SEARCH */
 
-document
-  .getElementById("searchInput")
-  .addEventListener("keydown", function(event) {
+function quickSearch(name) {
 
-    if (event.key === "Enter") {
-      searchItems();
-    }
+  document.getElementById("searchInput").value = name;
 
-  });
+  currentCategory = "All";
 
-</script>
+  resetCategoryButtons();
 
-</body>
-</html>
+  searchItems();
+
+}
+
+
+/* CATEGORY SEARCH */
+
+function categorySearch(category) {
+
+  currentCategory = category;
+
+  const country =
+    document.getElementById("countrySelect").value;
+
+
+  const results =
+    database.filter(item =>
+      item.category === category
+    );
+
+
+  document.getElementById("searchInput").value = "";
+
+
+  const section =
+    document.getElementById("resultsSection");
+
+  section.style.display = "block";
+
+
+  document.getElementById("resultsTitle").textContent =
+    `${category}s`;
+
+  document.getElementById("resultsCount").textContent =
+    `${results.length} result${results.length === 1 ? "" : "s"} found`;
+
+  document.getElementById("resultsCountry").textContent =
+    `🌍 ${country}`;
+
+
+  showResults(
+    results,
+    country,
+    category
+  );
+
+}
+
+
+/* COUNTRY */
+
+function setCountry(country) {
+
+  document.getElementById("countrySelect").value =
+    country;
+
+
+  if (
+    document.getElementById("searchInput")
+      .value.trim()
+  ) {
+
+    searchItems();
+
+  }
+
+}
+
+
+/* CATEGORY FILTER */
+
+function setCategory(category, button) {
+
+  current
