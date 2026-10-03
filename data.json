@@ -1,82 +1,210 @@
 [
   {
     "name": "WhatsApp",
-    "category": "Apps",
-    "platform": "Android, iOS, Web, Windows, Mac",
-    "link": "https://www.whatsapp.com/download",
-    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "category": "App",
+    "platform": "Android, iOS, Web",
+    "link": "https://www.whatsapp.com/",
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
     "name": "Telegram",
-    "category": "Apps",
-    "platform": "Android, iOS, Windows, Mac, Linux, Web",
-    "link": "https://telegram.org/apps",
-    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "category": "App",
+    "platform": "Android, iOS, Web, Desktop",
+    "link": "https://telegram.org/",
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
     "name": "Spotify",
     "category": "Music",
-    "platform": "Android, iOS, Web, Windows, Mac",
+    "platform": "Android, iOS, Web, Desktop",
     "link": "https://www.spotify.com/",
-    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
     "name": "Fortnite",
-    "category": "Games",
-    "platform": "Android, iOS, PC, Console, Cloud",
-    "link": "https://www.fortnite.com/mobile",
-    "countries": ["India", "USA", "UK", "Canada", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "category": "Game",
+    "platform": "PC, PlayStation, Xbox, Nintendo Switch, Mobile",
+    "link": "https://www.fortnite.com/",
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
     "name": "Minecraft",
-    "category": "Games",
-    "platform": "Android, iOS, PC, Console",
+    "category": "Game",
+    "platform": "Android, iOS, PC, PlayStation, Xbox, Nintendo Switch",
     "link": "https://www.minecraft.net/",
-    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
+    "lastChecked": "2026-10-04"
+  },
+  {
+    "name": "PUBG Mobile",
+    "category": "Game",
+    "platform": "Android, iOS",
+    "link": "https://www.pubgmobile.com/",
+    "countries": [
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
     "name": "Instagram",
-    "category": "Apps",
+    "category": "App",
     "platform": "Android, iOS, Web",
     "link": "https://www.instagram.com/",
-    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
     "name": "VLC",
     "category": "Software",
-    "platform": "Android, iOS, Windows, Mac, Linux",
+    "platform": "Android, iOS, Windows, macOS, Linux",
     "link": "https://www.videolan.org/vlc/",
-    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
     "name": "Steam",
-    "category": "Games",
-    "platform": "Windows, Mac, Linux",
+    "category": "Software",
+    "platform": "Windows, macOS, Linux",
     "link": "https://store.steampowered.com/",
-    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
     "name": "Netflix",
-    "category": "Movies",
+    "category": "TV Show",
     "platform": "Android, iOS, Web, Smart TV",
     "link": "https://www.netflix.com/",
-    "countries": ["India", "USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   },
   {
-    "name": "PUBG Mobile",
-    "category": "Games",
-    "platform": "Android, iOS",
-    "link": "https://www.pubgmobile.com/",
-    "countries": ["USA", "UK", "Canada", "Australia", "Germany", "Japan", "South Korea", "Brazil", "France"],
+    "name": "PUBG",
+    "category": "Game",
+    "platform": "PC, PlayStation, Xbox",
+    "link": "https://pubg.com/",
+    "countries": [
+      "India",
+      "USA",
+      "UK",
+      "Canada",
+      "Australia",
+      "Germany",
+      "Japan",
+      "South Korea",
+      "Brazil",
+      "France"
+    ],
     "lastChecked": "2026-10-04"
   }
 ]
