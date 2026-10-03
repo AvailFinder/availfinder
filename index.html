@@ -1,1279 +1,974 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AvailFinder — Find Where Anything Is Available</title>
-<meta name="description" content="Find where apps, games, movies, TV shows, music and software are available.">
-
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background:
-    radial-gradient(circle at 50% -10%, #202a4a 0%, #0b0f19 38%, #070a11 75%);
-  color: #fff;
-  min-height: 100vh;
-}
-
-.container {
-  width: min(1100px, 92%);
-  margin: auto;
-}
-
-/* NAVBAR */
-
-.navbar {
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: -1px;
-}
-
-.logo span {
-  color: #6ea8ff;
-}
-
-.nav-badge {
-  font-size: 12px;
-  padding: 7px 12px;
-  border-radius: 20px;
-  background: rgba(110,168,255,0.1);
-  border: 1px solid rgba(110,168,255,0.25);
-  color: #9fc3ff;
-}
-
-/* HERO */
-
-.hero {
-  text-align: center;
-  padding: 65px 0 35px;
-}
-
-.hero-label {
-  display: inline-block;
-  padding: 7px 13px;
-  border-radius: 30px;
-  background: rgba(110,168,255,0.1);
-  border: 1px solid rgba(110,168,255,0.2);
-  color: #9fc3ff;
-  font-size: 13px;
-  margin-bottom: 20px;
-}
-
-.hero h1 {
-  font-size: clamp(40px, 8vw, 70px);
-  line-height: 1;
-  letter-spacing: -3px;
-  margin-bottom: 20px;
-}
-
-.hero h1 span {
-  background: linear-gradient(90deg,#6ea8ff,#a98bff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.hero p {
-  max-width: 650px;
-  margin: auto;
-  color: #9da7ba;
-  font-size: 17px;
-  line-height: 1.6;
-}
-
-/* SEARCH */
-
-.search-area {
-  margin: 25px auto 45px;
-  max-width: 900px;
-}
-
-.search-box {
-  display: flex;
-  gap: 10px;
-  background: rgba(18,24,38,0.95);
-  padding: 10px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-}
-
-.search-box input {
-  flex: 1;
-  min-width: 0;
-  background: transparent;
-  border: 0;
-  outline: none;
-  color: white;
-  font-size: 16px;
-  padding: 15px;
-}
-
-.search-box input::placeholder {
-  color: #697386;
-}
-
-.country-select {
-  background: #111827;
-  color: white;
-  border: 1px solid #283247;
-  border-radius: 12px;
-  padding: 0 14px;
-  outline: none;
-  cursor: pointer;
-}
-
-.search-button {
-  border: 0;
-  border-radius: 12px;
-  padding: 0 24px;
-  background: linear-gradient(135deg,#6ea8ff,#8d72ff);
-  color: white;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.search-button:hover {
-  opacity: 0.9;
-}
-
-/* GENERAL SECTIONS */
-
-.section {
-  margin: 55px 0;
-}
-
-.section-title {
-  font-size: 24px;
-  margin-bottom: 18px;
-}
-
-.section-subtitle {
-  color: #7f899b;
-  margin-top: -10px;
-  margin-bottom: 20px;
-}
-
-/* POPULAR SEARCHES */
-
-.popular-searches {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.quick-button {
-  background: #111827;
-  border: 1px solid #263147;
-  color: #dce5f5;
-  border-radius: 12px;
-  padding: 11px 16px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.quick-button:hover {
-  border-color: #6ea8ff;
-  transform: translateY(-2px);
-}
-
-/* CATEGORY CARDS */
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 14px;
-}
-
-.category-card {
-  background: linear-gradient(145deg,#111827,#0d1320);
-  border: 1px solid #202b40;
-  border-radius: 18px;
-  padding: 24px;
-  cursor: pointer;
-  transition: 0.25s;
-}
-
-.category-card:hover {
-  transform: translateY(-4px);
-  border-color: #5f8edb;
-}
-
-.category-icon {
-  font-size: 28px;
-  margin-bottom: 14px;
-}
-
-.category-card h3 {
-  margin-bottom: 7px;
-}
-
-.category-card p {
-  color: #778196;
-  font-size: 13px;
-}
-
-/* COUNTRIES */
-
-.country-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.country-button {
-  background: #111827;
-  border: 1px solid #263147;
-  color: #cdd6e6;
-  border-radius: 12px;
-  padding: 11px 15px;
-  cursor: pointer;
-}
-
-.country-button:hover {
-  border-color: #6ea8ff;
-}
-
-/* RESULTS */
-
-#resultsSection {
-  display: none;
-  margin-top: 40px;
-  padding: 28px 0 10px;
-  scroll-margin-top: 20px;
-}
-
-.results-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.results-heading h2 {
-  font-size: 28px;
-  margin-bottom: 7px;
-}
-
-.results-heading p {
-  color: #7f899b;
-  font-size: 14px;
-}
-
-.results-country {
-  background: rgba(110,168,255,0.1);
-  border: 1px solid rgba(110,168,255,0.25);
-  color: #a8c8ff;
-  padding: 9px 13px;
-  border-radius: 11px;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.category-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.filter-button {
-  background: #101827;
-  color: #9da8bb;
-  border: 1px solid #263147;
-  padding: 9px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.filter-button.active {
-  background: #6ea8ff;
-  color: white;
-  border-color: #6ea8ff;
-}
-
-.results {
-  display: grid;
-  gap: 13px;
-}
-
-/* RESULT CARD */
-
-.result-card {
-  background: linear-gradient(145deg,#111827,#0d1320);
-  border: 1px solid #202b40;
-  border-radius: 18px;
-  padding: 20px;
-  transition: 0.2s;
-}
-
-.result-card:hover {
-  border-color: #466da8;
-}
-
-.result-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  align-items: flex-start;
-}
-
-.result-title {
-  font-size: 20px;
-  margin-bottom: 7px;
-}
-
-.result-category {
-  color: #78849a;
-  font-size: 13px;
-}
-
-.available {
-  color: #75e0a1;
-  background: rgba(60,180,110,0.1);
-  border: 1px solid rgba(60,180,110,0.2);
-  padding: 7px 10px;
-  border-radius: 9px;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.not-available {
-  color: #ff8f8f;
-  background: rgba(255,80,80,0.08);
-  border: 1px solid rgba(255,80,80,0.18);
-  padding: 7px 10px;
-  border-radius: 9px;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.result-info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin-top: 17px;
-}
-
-.info {
-  background: #0a101c;
-  color: #9ca8bb;
-  border: 1px solid #1d283b;
-  padding: 8px 10px;
-  border-radius: 9px;
-  font-size: 12px;
-}
-
-.source-link {
-  display: inline-block;
-  margin-top: 16px;
-  color: #8bb7ff;
-  text-decoration: none;
-  font-size: 13px;
-}
-
-.source-link:hover {
-  text-decoration: underline;
-}
-
-/* EMPTY */
-
-.empty {
-  text-align: center;
-  padding: 50px 20px;
-  color: #7f899b;
-  background: #0d1421;
-  border: 1px solid #1d283b;
-  border-radius: 18px;
-}
-
-.empty h3 {
-  color: #dfe6f2;
-  margin-bottom: 8px;
-}
-
-/* HOW IT WORKS */
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 14px;
-}
-
-.step {
-  padding: 23px;
-  border-radius: 17px;
-  background: #0d1421;
-  border: 1px solid #202b40;
-}
-
-.step-number {
-  font-size: 13px;
-  color: #7caeff;
-  margin-bottom: 12px;
-}
-
-.step h3 {
-  margin-bottom: 8px;
-}
-
-.step p {
-  color: #78849a;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-/* FOOTER */
-
-footer {
-  border-top: 1px solid rgba(255,255,255,0.07);
-  margin-top: 70px;
-  padding: 30px 0;
-  text-align: center;
-  color: #606b7e;
-  font-size: 13px;
-}
-
-/* MOBILE */
-
-@media (max-width: 700px) {
-
-  .hero {
-    padding: 50px 0 30px;
-  }
-
-  .hero h1 {
-    letter-spacing: -2px;
-  }
-
-  .hero p {
-    font-size: 15px;
-  }
-
-  .search-box {
-    flex-direction: column;
-  }
-
-  .search-box input {
-    width: 100%;
-  }
-
-  .country-select,
-  .search-button {
-    height: 50px;
-    width: 100%;
-  }
-
-  .category-grid {
-    grid-template-columns: repeat(2,1fr);
-  }
-
-  .steps {
-    grid-template-columns: 1fr;
-  }
-
-  .results-heading {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .result-header {
-    flex-direction: column;
-  }
-
-  .nav-badge {
-    display: none;
-  }
-}
-
-@media (max-width: 430px) {
-
-  .category-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero h1 {
-    font-size: 42px;
-  }
-
-  .results-heading h2 {
-    font-size: 24px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AvailFinder — Find Where Anything Is Available</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, #18233f 0%, transparent 35%),
+        radial-gradient(circle at top right, #24163f 0%, transparent 30%),
+        #080b12;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1150px, 92%);
+      margin: auto;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: #7c5cff;
+    }
+
+    .badge {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      padding: 9px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      color: #bfc5d8;
+    }
+
+    /* HERO */
+
+    .hero {
+      text-align: center;
+      padding: 90px 0 55px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(124,92,255,0.12);
+      border: 1px solid rgba(124,92,255,0.35);
+      color: #a998ff;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1;
+      letter-spacing: -3px;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 24px auto 35px;
+      color: #9da5bb;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* SEARCH */
+
+    .search-box {
+      width: min(900px, 100%);
+      margin: auto;
+      padding: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      display: flex;
+      gap: 8px;
+      backdrop-filter: blur(15px);
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+    }
+
+    .search-box input::placeholder {
+      color: #6f778d;
+    }
+
+    .country-select {
+      background: #111522;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 0 14px;
+      outline: none;
+    }
+
+    .search-btn {
+      background: #7c5cff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 0 25px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .search-btn:hover {
+      background: #6d4df0;
+    }
+
+    /* QUICK SEARCH */
+
+    .quick {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .quick span {
+      color: #70788e;
+      font-size: 13px;
+    }
+
+    .quick button {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #aeb5c8;
+      padding: 7px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .quick button:hover {
+      border-color: #7c5cff;
+      color: white;
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 65px 0;
+    }
+
+    .section-title {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+      color: #7f879c;
+      margin-bottom: 28px;
+    }
+
+    /* CATEGORY */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .category {
+      padding: 22px 10px;
+      text-align: center;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-3px);
+      border-color: #7c5cff;
+      background: rgba(124,92,255,0.08);
+    }
+
+    .category-icon {
+      font-size: 25px;
+      margin-bottom: 9px;
+    }
+
+    .category-name {
+      font-size: 13px;
+      color: #b7bed0;
+    }
+
+    /* COUNTRIES */
+
+    .countries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .country-btn {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: #b7bed0;
+      padding: 10px 15px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    .country-btn:hover {
+      border-color: #7c5cff;
+      color: white;
+    }
+
+    /* HOW IT WORKS */
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      padding: 25px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(124,92,255,0.15);
+      color: #a998ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-weight: bold;
+    }
+
+    .step h3 {
+      margin-bottom: 9px;
+    }
+
+    .step p {
+      color: #81899d;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* RESULTS */
+
+    #resultsSection {
+      display: none;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .results-title {
+      font-size: 30px;
+    }
+
+    .results-info {
+      color: #858da2;
+      margin-top: 7px;
+    }
+
+    .country-badge {
+      padding: 9px 14px;
+      background: rgba(124,92,255,0.12);
+      border: 1px solid rgba(124,92,255,0.3);
+      color: #a998ff;
+      border-radius: 30px;
+      font-size: 13px;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .filter {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: #8991a6;
+      padding: 9px 14px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .filter.active,
+    .filter:hover {
+      background: #7c5cff;
+      color: white;
+      border-color: #7c5cff;
+    }
+
+    .results-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .result-card {
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .result-card:hover {
+      border-color: rgba(124,92,255,0.5);
+    }
+
+    .result-left {
+      min-width: 0;
+    }
+
+    .result-name {
+      font-size: 21px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .result-meta {
+      color: #81899d;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .result-country {
+      color: #a998ff;
+    }
+
+    .result-link {
+      background: #7c5cff;
+      color: white;
+      padding: 11px 17px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .empty {
+      padding: 40px 20px;
+      text-align: center;
+      border: 1px dashed rgba(255,255,255,0.12);
+      border-radius: 18px;
+      color: #858da2;
+    }
+
+    .error-box {
+      padding: 25px;
+      border-radius: 15px;
+      background: rgba(255,70,70,0.08);
+      border: 1px solid rgba(255,70,70,0.25);
+      color: #ffaaaa;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 30px 0;
+      color: #687085;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+      .categories {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box {
+        flex-wrap: wrap;
+      }
+
+      .search-box input {
+        width: 100%;
+        flex-basis: 100%;
+      }
+
+      .country-select {
+        height: 48px;
+        flex: 1;
+      }
+
+      .search-btn {
+        height: 48px;
+        flex: 1;
+      }
+
+      .result-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .result-link {
+        display: inline-block;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .hero {
+        padding-top: 60px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .badge {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="navbar">
-  <div class="container nav">
-
-    <div class="logo">
-      Avail<span>Finder</span>
-    </div>
-
-    <div class="nav-badge">
-      Availability Search
-    </div>
-
-  </div>
-</header>
-
-
-<main class="container">
-
-  <!-- HERO -->
-
-  <section class="hero">
-
-    <div class="hero-label">
-      🌍 One search. Multiple countries.
-    </div>
-
-    <h1>
-      Find where<br>
-      <span>anything is available.</span>
-    </h1>
-
-    <p>
-      Search apps, games, movies, TV shows, music and software
-      and discover where you can officially access them.
-    </p>
-
-  </section>
-
-
-  <!-- SEARCH -->
-
-  <section class="search-area">
-
-    <div class="search-box">
-
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="Search WhatsApp, Minecraft, Spotify..."
-        autocomplete="off"
-      >
-
-      <select id="countrySelect" class="country-select">
-
-        <option value="India">🇮🇳 India</option>
-        <option value="USA">🇺🇸 USA</option>
-        <option value="UK">🇬🇧 UK</option>
-        <option value="Canada">🇨🇦 Canada</option>
-        <option value="Australia">🇦🇺 Australia</option>
-        <option value="Germany">🇩🇪 Germany</option>
-        <option value="Japan">🇯🇵 Japan</option>
-        <option value="South Korea">🇰🇷 South Korea</option>
-        <option value="Brazil">🇧🇷 Brazil</option>
-        <option value="France">🇫🇷 France</option>
-
-      </select>
-
-      <button
-        class="search-button"
-        onclick="searchItems()"
-      >
-        Search
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- RESULTS -->
-
-  <section id="resultsSection">
-
-    <div class="results-heading">
-
-      <div>
-
-        <h2 id="resultsTitle">
-          Search results
-        </h2>
-
-        <p id="resultsCount"></p>
-
-      </div>
-
-      <div
-        id="resultsCountry"
-        class="results-country"
-      >
-        🌍 India
-      </div>
-
-    </div>
-
-
-    <div class="category-filters">
-
-      <button
-        class="filter-button active"
-        onclick="setCategory('All', this)"
-      >
-        All
-      </button>
-
-      <button
-        class="filter-button"
-        onclick="setCategory('App', this)"
-      >
-        Apps
-      </button>
-
-      <button
-        class="filter-button"
-        onclick="setCategory('Game', this)"
-      >
-        Games
-      </button>
-
-      <button
-        class="filter-button"
-        onclick="setCategory('Movie', this)"
-      >
-        Movies
-      </button>
-
-      <button
-        class="filter-button"
-        onclick="setCategory('TV Show', this)"
-      >
-        TV Shows
-      </button>
-
-      <button
-        class="filter-button"
-        onclick="setCategory('Music', this)"
-      >
-        Music
-      </button>
-
-      <button
-        class="filter-button"
-        onclick="setCategory('Software', this)"
-      >
-        Software
-      </button>
-
-    </div>
-
-
-    <div id="results" class="results"></div>
-
-  </section>
-
-
-  <!-- POPULAR SEARCHES -->
-
-  <section class="section">
-
-    <h2 class="section-title">
-      Popular searches
-    </h2>
-
-    <p class="section-subtitle">
-      Quick access to commonly searched services.
-    </p>
-
-    <div class="popular-searches">
-
-      <button
-        class="quick-button"
-        onclick="quickSearch('WhatsApp')"
-      >
-        WhatsApp
-      </button>
-
-      <button
-        class="quick-button"
-        onclick="quickSearch('Spotify')"
-      >
-        Spotify
-      </button>
-
-      <button
-        class="quick-button"
-        onclick="quickSearch('Minecraft')"
-      >
-        Minecraft
-      </button>
-
-      <button
-        class="quick-button"
-        onclick="quickSearch('Fortnite')"
-      >
-        Fortnite
-      </button>
-
-      <button
-        class="quick-button"
-        onclick="quickSearch('Netflix')"
-      >
-        Netflix
-      </button>
-
-      <button
-        class="quick-button"
-        onclick="quickSearch('Telegram')"
-      >
-        Telegram
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- CATEGORIES -->
-
-  <section class="section">
-
-    <h2 class="section-title">
-      Explore categories
-    </h2>
-
-    <div class="category-grid">
-
-      <div
-        class="category-card"
-        onclick="categorySearch('App')"
-      >
-        <div class="category-icon">📱</div>
-        <h3>Apps</h3>
-        <p>Find apps by country and platform.</p>
-      </div>
-
-
-      <div
-        class="category-card"
-        onclick="categorySearch('Game')"
-      >
-        <div class="category-icon">🎮</div>
-        <h3>Games</h3>
-        <p>Discover where games are available.</p>
-      </div>
-
-
-      <div
-        class="category-card"
-        onclick="categorySearch('Movie')"
-      >
-        <div class="category-icon">🎬</div>
-        <h3>Movies</h3>
-        <p>Check movie availability by region.</p>
-      </div>
-
-
-      <div
-        class="category-card"
-        onclick="categorySearch('TV Show')"
-      >
-        <div class="category-icon">📺</div>
-        <h3>TV Shows</h3>
-        <p>Find streaming availability.</p>
-      </div>
-
-
-      <div
-        class="category-card"
-        onclick="categorySearch('Music')"
-      >
-        <div class="category-icon">🎵</div>
-        <h3>Music</h3>
-        <p>Find music services and platforms.</p>
-      </div>
-
-
-      <div
-        class="category-card"
-        onclick="categorySearch('Software')"
-      >
-        <div class="category-icon">💻</div>
-        <h3>Software</h3>
-        <p>Find software and official sources.</p>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- COUNTRIES -->
-
-  <section class="section">
-
-    <h2 class="section-title">
-      Popular countries
-    </h2>
-
-    <div class="country-grid">
-
-      <button
-        class="country-button"
-        onclick="setCountry('India')"
-      >
-        🇮🇳 India
-      </button>
-
-      <button
-        class="country-button"
-        onclick="setCountry('USA')"
-      >
-        🇺🇸 USA
-      </button>
-
-      <button
-        class="country-button"
-        onclick="setCountry('UK')"
-      >
-        🇬🇧 UK
-      </button>
-
-      <button
-        class="country-button"
-        onclick="setCountry('Canada')"
-      >
-        🇨🇦 Canada
-      </button>
-
-      <button
-        class="country-button"
-        onclick="setCountry('Japan')"
-      >
-        🇯🇵 Japan
-      </button>
-
-      <button
-        class="country-button"
-        onclick="setCountry('Germany')"
-      >
-        🇩🇪 Germany
-      </button>
-
-      <button
-        class="country-button"
-        onclick="setCountry('France')"
-      >
-        🇫🇷 France
-      </button>
-
-      <button
-        class="country-button"
-        onclick="setCountry('Australia')"
-      >
-        🇦🇺 Australia
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- HOW IT WORKS -->
-
-  <section class="section">
-
-    <h2 class="section-title">
-      How AvailFinder works
-    </h2>
-
-    <div class="steps">
-
-      <div class="step">
-
-        <div class="step-number">
-          01 — SEARCH
-        </div>
-
-        <h3>
-          Search anything
-        </h3>
-
-        <p>
-          Enter the name of an app, game, movie,
-          show, music service or software.
-        </p>
-
-      </div>
-
-
-      <div class="step">
-
-        <div class="step-number">
-          02 — SELECT
-        </div>
-
-        <h3>
-          Choose a country
-        </h3>
-
-        <p>
-          Select the country you want to check.
-        </p>
-
-      </div>
-
-
-      <div class="step">
-
-        <div class="step-number">
-          03 — DISCOVER
-        </div>
-
-        <h3>
-          See availability
-        </h3>
-
-        <p>
-          View the available platform and official source.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
-
-
-<footer>
-
   <div class="container">
-    © 2026 AvailFinder · Official availability information only
+
+    <!-- NAVBAR -->
+    <nav>
+      <div class="logo">
+        Avail<span>Finder</span>
+      </div>
+
+      <div class="badge">
+        Availability Search
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <main class="hero">
+
+      <div class="hero-label">
+        🌎 Global Availability Search
+      </div>
+
+      <h1>
+        Find where anything is available.
+      </h1>
+
+      <p>
+        Search apps, games, movies, TV shows, music and software
+        to discover where they are available by country and platform.
+      </p>
+
+      <!-- SEARCH -->
+      <div class="search-box">
+
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search Netflix, PUBG Mobile, Spotify..."
+          autocomplete="off"
+        >
+
+        <select id="countrySelect" class="country-select">
+          <option value="All">🌎 All Countries</option>
+          <option value="India">🇮🇳 India</option>
+          <option value="USA">🇺🇸 USA</option>
+          <option value="UK">🇬🇧 UK</option>
+          <option value="Canada">🇨🇦 Canada</option>
+          <option value="Australia">🇦🇺 Australia</option>
+          <option value="Germany">🇩🇪 Germany</option>
+          <option value="Japan">🇯🇵 Japan</option>
+          <option value="South Korea">🇰🇷 South Korea</option>
+          <option value="Brazil">🇧🇷 Brazil</option>
+          <option value="France">🇫🇷 France</option>
+        </select>
+
+        <button class="search-btn" onclick="performSearch()">
+          Search
+        </button>
+
+      </div>
+
+      <!-- QUICK SEARCH -->
+      <div class="quick">
+        <span>Popular:</span>
+
+        <button onclick="quickSearch('Netflix')">Netflix</button>
+        <button onclick="quickSearch('Spotify')">Spotify</button>
+        <button onclick="quickSearch('Minecraft')">Minecraft</button>
+        <button onclick="quickSearch('PUBG Mobile')">PUBG Mobile</button>
+        <button onclick="quickSearch('WhatsApp')">WhatsApp</button>
+      </div>
+
+    </main>
+
+    <!-- RESULTS -->
+    <section id="resultsSection">
+
+      <div class="results-header">
+
+        <div>
+          <h2 class="results-title" id="resultsTitle">
+            Search Results
+          </h2>
+
+          <div class="results-info" id="resultsInfo">
+            0 results
+          </div>
+        </div>
+
+        <div class="country-badge" id="countryBadge">
+          🌎 All Countries
+        </div>
+
+      </div>
+
+      <div class="filter-bar">
+
+        <button class="filter active" onclick="setCategory('All', this)">
+          All
+        </button>
+
+        <button class="filter" onclick="setCategory('App', this)">
+          Apps
+        </button>
+
+        <button class="filter" onclick="setCategory('Game', this)">
+          Games
+        </button>
+
+        <button class="filter" onclick="setCategory('Movie', this)">
+          Movies
+        </button>
+
+        <button class="filter" onclick="setCategory('TV Show', this)">
+          TV Shows
+        </button>
+
+        <button class="filter" onclick="setCategory('Music', this)">
+          Music
+        </button>
+
+        <button class="filter" onclick="setCategory('Software', this)">
+          Software
+        </button>
+
+      </div>
+
+      <div id="resultsGrid" class="results-grid"></div>
+
+    </section>
+
+    <!-- CATEGORIES -->
+    <section>
+
+      <h2 class="section-title">
+        Explore categories
+      </h2>
+
+      <p class="section-subtitle">
+        Search across different types of digital content.
+      </p>
+
+      <div class="categories">
+
+        <div class="category" onclick="categorySearch('App')">
+          <div class="category-icon">📱</div>
+          <div class="category-name">Apps</div>
+        </div>
+
+        <div class="category" onclick="categorySearch('Game')">
+          <div class="category-icon">🎮</div>
+          <div class="category-name">Games</div>
+        </div>
+
+        <div class="category" onclick="categorySearch('Movie')">
+          <div class="category-icon">🎬</div>
+          <div class="category-name">Movies</div>
+        </div>
+
+        <div class="category" onclick="categorySearch('TV Show')">
+          <div class="category-icon">📺</div>
+          <div class="category-name">TV Shows</div>
+        </div>
+
+        <div class="category" onclick="categorySearch('Music')">
+          <div class="category-icon">🎵</div>
+          <div class="category-name">Music</div>
+        </div>
+
+        <div class="category" onclick="categorySearch('Software')">
+          <div class="category-icon">💻</div>
+          <div class="category-name">Software</div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- COUNTRIES -->
+    <section>
+
+      <h2 class="section-title">
+        Popular countries
+      </h2>
+
+      <p class="section-subtitle">
+        Choose a country to check availability.
+      </p>
+
+      <div class="countries">
+
+        <button class="country-btn" onclick="setCountry('India')">
+          🇮🇳 India
+        </button>
+
+        <button class="country-btn" onclick="setCountry('USA')">
+          🇺🇸 USA
+        </button>
+
+        <button class="country-btn" onclick="setCountry('UK')">
+          🇬🇧 UK
+        </button>
+
+        <button class="country-btn" onclick="setCountry('Canada')">
+          🇨🇦 Canada
+        </button>
+
+        <button class="country-btn" onclick="setCountry('Australia')">
+          🇦🇺 Australia
+        </button>
+
+        <button class="country-btn" onclick="setCountry('Germany')">
+          🇩🇪 Germany
+        </button>
+
+        <button class="country-btn" onclick="setCountry('Japan')">
+          🇯🇵 Japan
+        </button>
+
+        <button class="country-btn" onclick="setCountry('South Korea')">
+          🇰🇷 South Korea
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section>
+
+      <h2 class="section-title">
+        How AvailFinder works
+      </h2>
+
+      <p class="section-subtitle">
+        Find availability in three simple steps.
+      </p>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Search</h3>
+          <p>
+            Enter the name of an app, game, movie, TV show,
+            music service or software.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Choose country</h3>
+          <p>
+            Select the country or search across all supported countries.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>See availability</h3>
+          <p>
+            See the platform, country and official source
+            for the result.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      © 2026 AvailFinder. Availability information may change.
+    </footer>
+
   </div>
 
-</footer>
+  <script>
 
+    let database = [];
+    let currentCategory = "All";
+    let databaseLoaded = false;
 
-<script>
+    /* --------------------------------
+       NORMALIZE TEXT
+    -------------------------------- */
 
-let database = [];
-let currentCategory = "All";
+    function normalize(text) {
 
+      return String(text || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
 
-/* LOAD DATA */
-
-fetch("./data.json")
-
-  .then(response => {
-
-    if (!response.ok) {
-      throw new Error("Could not load data.json");
     }
 
-    return response.json();
 
-  })
+    /* --------------------------------
+       LOAD DATABASE
+    -------------------------------- */
 
-  .then(data => {
+    fetch("./data.json")
+      .then(function(response) {
 
-    database = data;
+        if (!response.ok) {
+          throw new Error(
+            "Could not load data.json. HTTP status: " +
+            response.status
+          );
+        }
 
-  })
+        return response.json();
 
-  .catch(error => {
+      })
 
-    console.error(error);
+      .then(function(data) {
 
-  });
+        if (!Array.isArray(data)) {
+          throw new Error("data.json must contain an array.");
+        }
 
+        database = data;
+        databaseLoaded = true;
 
-/* SEARCH */
+        console.log("AvailFinder database loaded:", database.length);
 
-function searchItems() {
+      })
 
-  const input =
-    document
-      .getElementById("searchInput")
-      .value
-      .trim();
+      .catch(function(error) {
 
-  const searchText =
-    input.toLowerCase();
+        console.error(error);
 
-  const country =
-    document
-      .getElementById("countrySelect")
-      .value;
+        databaseLoaded = false;
 
+      });
 
-  if (!input) {
 
-    document
-      .getElementById("resultsSection")
-      .style.display = "none";
+    /* --------------------------------
+       SEARCH
+    -------------------------------- */
 
-    return;
+    function performSearch() {
 
-  }
+      const input = document.getElementById("searchInput");
+      const countrySelect = document.getElementById("countrySelect");
 
+      const query = input.value.trim();
+      const country = countrySelect.value;
 
-  const results =
-    database.filter(item => {
+      if (!query) {
 
-      const matchesSearch =
+        alert("Please enter something to search.");
 
-        item.name
-          .toLowerCase()
-          .includes(searchText)
+        input.focus();
 
-        ||
+        return;
+      }
 
-        item.category
-          .toLowerCase()
-          .includes(searchText)
+      if (!databaseLoaded) {
 
-        ||
+        showDatabaseError();
 
-        item.platform
-          .toLowerCase()
-          .includes(searchText);
+        return;
+      }
 
+      currentCategory = "All";
 
-      const matchesCategory =
+      resetFilters();
 
-        currentCategory === "All"
+      showResults(query, country);
 
-        ||
+    }
 
-        item.category === currentCategory;
 
+    /* --------------------------------
+       SMART SEARCH
+    -------------------------------- */
 
-      return matchesSearch && matchesCategory;
+    function searchDatabase(query, country) {
 
-    });
+      const normalizedQuery = normalize(query);
 
+      const queryWords = normalizedQuery
+        .split(" ")
+        .filter(Boolean);
 
-  showResults(
-    results,
-    country,
-    input
-  );
+      return database.filter(function(item) {
 
-}
+        const name = normalize(item.name);
+        const platform = normalize(item.platform);
+        const category = normalize(item.category);
 
+        /*
+          Every search word must appear somewhere
+          in the item's name/platform/category.
+        */
 
-/* SHOW RESULTS */
+        const searchableText =
+          name + " " +
+          platform + " " +
+          category;
 
-function showResults(
-  results,
-  country,
-  searchText
-) {
+        const matchesSearch =
+          queryWords.every(function(word) {
 
-  const section =
-    document.getElementById(
-      "resultsSection"
-    );
+            return searchableText.includes(word);
 
-  const resultsBox =
-    document.getElementById(
-      "results"
-    );
+          });
 
-  const count =
-    document.getElementById(
-      "resultsCount"
-    );
+        if (!matchesSearch) {
+          return false;
+        }
 
-  const title =
-    document.getElementById(
-      "resultsTitle"
-    );
+        /* CATEGORY FILTER */
 
-  const countryBox =
-    document.getElementById(
-      "resultsCountry"
-    );
+        if (currentCategory !== "All") {
 
+          const wantedCategory =
+            normalize(currentCategory);
 
-  section.style.display = "block";
+          const actualCategory =
+            normalize(item.category);
 
+          /*
+            Allows Game/Games and App/Apps.
+          */
 
-  title.textContent =
-    `Results for "${searchText}"`;
+          const categoryMatches =
+            actualCategory === wantedCategory ||
+            actualCategory === wantedCategory + "s" ||
+            actualCategory.replace(/s$/, "") ===
+            wantedCategory.replace(/s$/, "");
 
+          if (!categoryMatches) {
+            return false;
+          }
 
-  count.textContent =
-    `${results.length} result${results.length === 1 ? "" : "s"} found`;
+        }
 
+        /* COUNTRY FILTER */
 
-  countryBox.textContent =
-    `🌍 ${country}`;
+        if (country !== "All") {
 
+          const countries = Array.isArray(item.countries)
+            ? item.countries
+            : [];
 
-  if (results.length === 0) {
+          const countryMatches =
+            countries.some(function(c) {
 
-    resultsBox.innerHTML = `
+              return normalize(c) === normalize(country);
 
-      <div class="empty">
+            });
 
-        <h3>
-          No results found
-        </h3>
+          if (!countryMatches) {
+            return false;
+          }
 
-        <p>
-          We couldn't find "${searchText}".
-        </p>
+        }
 
-        <p style="margin-top:8px;">
-          Try another name or category.
-        </p>
+        return true;
 
-      </div>
+      });
 
-    `;
+    }
 
-  } else {
 
-    resultsBox.innerHTML =
-      results.map(item => {
+    /* --------------------------------
+       SHOW RESULTS
+    -------------------------------- */
 
-        const available =
-          item.countries &&
-          item.countries.includes(country);
+    function showResults(query, country) {
 
+      const resultsSection =
+        document.getElementById("resultsSection");
 
-        return `
+      const resultsGrid =
+        document.getElementById("resultsGrid");
 
-          <div class="result-card">
+      const resultsTitle =
+        document.getElementById("resultsTitle");
 
-            <div class="result-header">
+      const resultsInfo =
+        document.getElementById("resultsInfo");
 
-              <div>
-
-                <div class="result-title">
-                  ${item.name}
-                </div>
-
-                <div class="result-category">
-                  ${item.category}
-                </div>
-
-              </div>
-
-
-              <div class="${available
-                ? "available"
-                : "not-available"}">
-
-                ${available
-                  ? "✓ Available"
-                  : "✕ Not listed"}
-
-              </div>
-
-            </div>
-
-
-            <div class="result-info">
-
-              <div class="info">
-                🌍 ${country}
-              </div>
-
-              <div class="info">
-                📱 ${item.platform}
-              </div>
-
-              <div class="info">
-                🕒 Checked ${item.lastChecked || "N/A"}
-              </div>
-
-            </div>
-
-
-            <a
-              class="source-link"
-              href="${item.link}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Visit official source →
-            </a>
-
-          </div>
-
-        `;
-
-      }).join("");
-
-  }
-
-
-  /*
-    Automatically take the user
-    directly to the results.
-  */
-
-  setTimeout(() => {
-
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  }, 100);
-
-}
-
-
-/* QUICK SEARCH */
-
-function quickSearch(name) {
-
-  document
-    .getElementById("searchInput")
-    .value = name;
-
-
-  currentCategory = "All";
-
-  resetCategoryButtons();
-
-  searchItems();
-
-}
-
-
-/* CATEGORY SEARCH */
-
-function categorySearch(category) {
-
-  currentCategory = category;
-
-
-  const country =
-    document
-      .getEleme
+      const countryBadge =
+        doc
