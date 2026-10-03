@@ -1,974 +1,1136 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AvailFinder — Find Where Anything Is Available</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, #18233f 0%, transparent 35%),
-        radial-gradient(circle at top right, #24163f 0%, transparent 30%),
-        #080b12;
-      color: #ffffff;
-      min-height: 100vh;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1150px, 92%);
-      margin: auto;
-    }
-
-    /* NAVBAR */
-
-    nav {
-      height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    .logo span {
-      color: #7c5cff;
-    }
-
-    .badge {
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.05);
-      padding: 9px 14px;
-      border-radius: 30px;
-      font-size: 13px;
-      color: #bfc5d8;
-    }
-
-    /* HERO */
-
-    .hero {
-      text-align: center;
-      padding: 90px 0 55px;
-    }
-
-    .hero-label {
-      display: inline-block;
-      background: rgba(124,92,255,0.12);
-      border: 1px solid rgba(124,92,255,0.35);
-      color: #a998ff;
-      padding: 8px 14px;
-      border-radius: 30px;
-      font-size: 13px;
-      margin-bottom: 22px;
-    }
-
-    h1 {
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: 1;
-      letter-spacing: -3px;
-      max-width: 850px;
-      margin: auto;
-    }
-
-    .hero p {
-      max-width: 650px;
-      margin: 24px auto 35px;
-      color: #9da5bb;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    /* SEARCH */
-
-    .search-box {
-      width: min(900px, 100%);
-      margin: auto;
-      padding: 8px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      display: flex;
-      gap: 8px;
-      backdrop-filter: blur(15px);
-    }
-
-    .search-box input {
-      flex: 1;
-      min-width: 0;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-    }
-
-    .search-box input::placeholder {
-      color: #6f778d;
-    }
-
-    .country-select {
-      background: #111522;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 0 14px;
-      outline: none;
-    }
-
-    .search-btn {
-      background: #7c5cff;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 0 25px;
-      font-weight: 700;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    .search-btn:hover {
-      background: #6d4df0;
-    }
-
-    /* QUICK SEARCH */
-
-    .quick {
-      margin-top: 22px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .quick span {
-      color: #70788e;
-      font-size: 13px;
-    }
-
-    .quick button {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #aeb5c8;
-      padding: 7px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-
-    .quick button:hover {
-      border-color: #7c5cff;
-      color: white;
-    }
-
-    /* SECTIONS */
-
-    section {
-      padding: 65px 0;
-    }
-
-    .section-title {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    .section-subtitle {
-      color: #7f879c;
-      margin-bottom: 28px;
-    }
-
-    /* CATEGORY */
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-    }
-
-    .category {
-      padding: 22px 10px;
-      text-align: center;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.035);
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .category:hover {
-      transform: translateY(-3px);
-      border-color: #7c5cff;
-      background: rgba(124,92,255,0.08);
-    }
-
-    .category-icon {
-      font-size: 25px;
-      margin-bottom: 9px;
-    }
-
-    .category-name {
-      font-size: 13px;
-      color: #b7bed0;
-    }
-
-    /* COUNTRIES */
-
-    .countries {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .country-btn {
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.04);
-      color: #b7bed0;
-      padding: 10px 15px;
-      border-radius: 30px;
-      cursor: pointer;
-    }
-
-    .country-btn:hover {
-      border-color: #7c5cff;
-      color: white;
-    }
-
-    /* HOW IT WORKS */
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .step {
-      padding: 25px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .step-number {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(124,92,255,0.15);
-      color: #a998ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-      font-weight: bold;
-    }
-
-    .step h3 {
-      margin-bottom: 9px;
-    }
-
-    .step p {
-      color: #81899d;
-      line-height: 1.6;
-      font-size: 14px;
-    }
-
-    /* RESULTS */
-
-    #resultsSection {
-      display: none;
-    }
-
-    .results-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .results-title {
-      font-size: 30px;
-    }
-
-    .results-info {
-      color: #858da2;
-      margin-top: 7px;
-    }
-
-    .country-badge {
-      padding: 9px 14px;
-      background: rgba(124,92,255,0.12);
-      border: 1px solid rgba(124,92,255,0.3);
-      color: #a998ff;
-      border-radius: 30px;
-      font-size: 13px;
-    }
-
-    .filter-bar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 25px;
-    }
-
-    .filter {
-      border: 1px solid rgba(255,255,255,0.1);
-      background: transparent;
-      color: #8991a6;
-      padding: 9px 14px;
-      border-radius: 25px;
-      cursor: pointer;
-    }
-
-    .filter.active,
-    .filter:hover {
-      background: #7c5cff;
-      color: white;
-      border-color: #7c5cff;
-    }
-
-    .results-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .result-card {
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 18px;
-      padding: 22px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .result-card:hover {
-      border-color: rgba(124,92,255,0.5);
-    }
-
-    .result-left {
-      min-width: 0;
-    }
-
-    .result-name {
-      font-size: 21px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .result-meta {
-      color: #81899d;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .result-country {
-      color: #a998ff;
-    }
-
-    .result-link {
-      background: #7c5cff;
-      color: white;
-      padding: 11px 17px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .empty {
-      padding: 40px 20px;
-      text-align: center;
-      border: 1px dashed rgba(255,255,255,0.12);
-      border-radius: 18px;
-      color: #858da2;
-    }
-
-    .error-box {
-      padding: 25px;
-      border-radius: 15px;
-      background: rgba(255,70,70,0.08);
-      border: 1px solid rgba(255,70,70,0.25);
-      color: #ffaaaa;
-      line-height: 1.6;
-    }
-
-    /* FOOTER */
-
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 30px 0;
-      color: #687085;
-      font-size: 13px;
-      text-align: center;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 800px) {
-      .categories {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .search-box {
-        flex-wrap: wrap;
-      }
-
-      .search-box input {
-        width: 100%;
-        flex-basis: 100%;
-      }
-
-      .country-select {
-        height: 48px;
-        flex: 1;
-      }
-
-      .search-btn {
-        height: 48px;
-        flex: 1;
-      }
-
-      .result-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .result-link {
-        display: inline-block;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .hero {
-        padding-top: 60px;
-      }
-
-      h1 {
-        letter-spacing: -2px;
-      }
-
-      .categories {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .badge {
-        display: none;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="container">
-
-    <!-- NAVBAR -->
-    <nav>
-      <div class="logo">
-        Avail<span>Finder</span>
-      </div>
-
-      <div class="badge">
-        Availability Search
-      </div>
-    </nav>
-
-    <!-- HERO -->
-    <main class="hero">
-
-      <div class="hero-label">
-        🌎 Global Availability Search
-      </div>
-
-      <h1>
-        Find where anything is available.
-      </h1>
-
-      <p>
-        Search apps, games, movies, TV shows, music and software
-        to discover where they are available by country and platform.
-      </p>
-
-      <!-- SEARCH -->
-      <div class="search-box">
-
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="Search Netflix, PUBG Mobile, Spotify..."
-          autocomplete="off"
-        >
-
-        <select id="countrySelect" class="country-select">
-          <option value="All">🌎 All Countries</option>
-          <option value="India">🇮🇳 India</option>
-          <option value="USA">🇺🇸 USA</option>
-          <option value="UK">🇬🇧 UK</option>
-          <option value="Canada">🇨🇦 Canada</option>
-          <option value="Australia">🇦🇺 Australia</option>
-          <option value="Germany">🇩🇪 Germany</option>
-          <option value="Japan">🇯🇵 Japan</option>
-          <option value="South Korea">🇰🇷 South Korea</option>
-          <option value="Brazil">🇧🇷 Brazil</option>
-          <option value="France">🇫🇷 France</option>
-        </select>
-
-        <button class="search-btn" onclick="performSearch()">
-          Search
-        </button>
-
-      </div>
-
-      <!-- QUICK SEARCH -->
-      <div class="quick">
-        <span>Popular:</span>
-
-        <button onclick="quickSearch('Netflix')">Netflix</button>
-        <button onclick="quickSearch('Spotify')">Spotify</button>
-        <button onclick="quickSearch('Minecraft')">Minecraft</button>
-        <button onclick="quickSearch('PUBG Mobile')">PUBG Mobile</button>
-        <button onclick="quickSearch('WhatsApp')">WhatsApp</button>
-      </div>
-
-    </main>
-
-    <!-- RESULTS -->
-    <section id="resultsSection">
-
-      <div class="results-header">
-
-        <div>
-          <h2 class="results-title" id="resultsTitle">
-            Search Results
-          </h2>
-
-          <div class="results-info" id="resultsInfo">
-            0 results
-          </div>
-        </div>
-
-        <div class="country-badge" id="countryBadge">
-          🌎 All Countries
-        </div>
-
-      </div>
-
-      <div class="filter-bar">
-
-        <button class="filter active" onclick="setCategory('All', this)">
-          All
-        </button>
-
-        <button class="filter" onclick="setCategory('App', this)">
-          Apps
-        </button>
-
-        <button class="filter" onclick="setCategory('Game', this)">
-          Games
-        </button>
-
-        <button class="filter" onclick="setCategory('Movie', this)">
-          Movies
-        </button>
-
-        <button class="filter" onclick="setCategory('TV Show', this)">
-          TV Shows
-        </button>
-
-        <button class="filter" onclick="setCategory('Music', this)">
-          Music
-        </button>
-
-        <button class="filter" onclick="setCategory('Software', this)">
-          Software
-        </button>
-
-      </div>
-
-      <div id="resultsGrid" class="results-grid"></div>
-
-    </section>
-
-    <!-- CATEGORIES -->
-    <section>
-
-      <h2 class="section-title">
-        Explore categories
-      </h2>
-
-      <p class="section-subtitle">
-        Search across different types of digital content.
-      </p>
-
-      <div class="categories">
-
-        <div class="category" onclick="categorySearch('App')">
-          <div class="category-icon">📱</div>
-          <div class="category-name">Apps</div>
-        </div>
-
-        <div class="category" onclick="categorySearch('Game')">
-          <div class="category-icon">🎮</div>
-          <div class="category-name">Games</div>
-        </div>
-
-        <div class="category" onclick="categorySearch('Movie')">
-          <div class="category-icon">🎬</div>
-          <div class="category-name">Movies</div>
-        </div>
-
-        <div class="category" onclick="categorySearch('TV Show')">
-          <div class="category-icon">📺</div>
-          <div class="category-name">TV Shows</div>
-        </div>
-
-        <div class="category" onclick="categorySearch('Music')">
-          <div class="category-icon">🎵</div>
-          <div class="category-name">Music</div>
-        </div>
-
-        <div class="category" onclick="categorySearch('Software')">
-          <div class="category-icon">💻</div>
-          <div class="category-name">Software</div>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- COUNTRIES -->
-    <section>
-
-      <h2 class="section-title">
-        Popular countries
-      </h2>
-
-      <p class="section-subtitle">
-        Choose a country to check availability.
-      </p>
-
-      <div class="countries">
-
-        <button class="country-btn" onclick="setCountry('India')">
-          🇮🇳 India
-        </button>
-
-        <button class="country-btn" onclick="setCountry('USA')">
-          🇺🇸 USA
-        </button>
-
-        <button class="country-btn" onclick="setCountry('UK')">
-          🇬🇧 UK
-        </button>
-
-        <button class="country-btn" onclick="setCountry('Canada')">
-          🇨🇦 Canada
-        </button>
-
-        <button class="country-btn" onclick="setCountry('Australia')">
-          🇦🇺 Australia
-        </button>
-
-        <button class="country-btn" onclick="setCountry('Germany')">
-          🇩🇪 Germany
-        </button>
-
-        <button class="country-btn" onclick="setCountry('Japan')">
-          🇯🇵 Japan
-        </button>
-
-        <button class="country-btn" onclick="setCountry('South Korea')">
-          🇰🇷 South Korea
-        </button>
-
-      </div>
-
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section>
-
-      <h2 class="section-title">
-        How AvailFinder works
-      </h2>
-
-      <p class="section-subtitle">
-        Find availability in three simple steps.
-      </p>
-
-      <div class="steps">
-
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Search</h3>
-          <p>
-            Enter the name of an app, game, movie, TV show,
-            music service or software.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Choose country</h3>
-          <p>
-            Select the country or search across all supported countries.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>See availability</h3>
-          <p>
-            See the platform, country and official source
-            for the result.
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      © 2026 AvailFinder. Availability information may change.
-    </footer>
-
-  </div>
-
-  <script>
-
-    let database = [];
-    let currentCategory = "All";
-    let databaseLoaded = false;
-
-    /* --------------------------------
-       NORMALIZE TEXT
-    -------------------------------- */
-
-    function normalize(text) {
-
-      return String(text || "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, " ")
-        .trim();
-
-    }
-
-
-    /* --------------------------------
-       LOAD DATABASE
-    -------------------------------- */
-
-    fetch("./data.json")
-      .then(function(response) {
-
-        if (!response.ok) {
-          throw new Error(
-            "Could not load data.json. HTTP status: " +
-            response.status
-          );
-        }
-
-        return response.json();
-
-      })
-
-      .then(function(data) {
-
-        if (!Array.isArray(data)) {
-          throw new Error("data.json must contain an array.");
-        }
-
-        database = data;
-        databaseLoaded = true;
-
-        console.log("AvailFinder database loaded:", database.length);
-
-      })
-
-      .catch(function(error) {
-
-        console.error(error);
-
-        databaseLoaded = false;
-
-      });
-
-
-    /* --------------------------------
-       SEARCH
-    -------------------------------- */
-
-    function performSearch() {
-
-      const input = document.getElementById("searchInput");
-      const countrySelect = document.getElementById("countrySelect");
-
-      const query = input.value.trim();
-      const country = countrySelect.value;
-
-      if (!query) {
-
-        alert("Please enter something to search.");
-
-        input.focus();
-
-        return;
-      }
-
-      if (!databaseLoaded) {
-
-        showDatabaseError();
-
-        return;
-      }
-
-      currentCategory = "All";
-
-      resetFilters();
-
-      showResults(query, country);
-
-    }
-
-
-    /* --------------------------------
-       SMART SEARCH
-    -------------------------------- */
-
-    function searchDatabase(query, country) {
-
-      const normalizedQuery = normalize(query);
-
-      const queryWords = normalizedQuery
-        .split(" ")
-        .filter(Boolean);
-
-      return database.filter(function(item) {
-
-        const name = normalize(item.name);
-        const platform = normalize(item.platform);
-        const category = normalize(item.category);
-
-        /*
-          Every search word must appear somewhere
-          in the item's name/platform/category.
-        */
-
-        const searchableText =
-          name + " " +
-          platform + " " +
-          category;
-
-        const matchesSearch =
-          queryWords.every(function(word) {
-
-            return searchableText.includes(word);
-
-          });
-
-        if (!matchesSearch) {
-          return false;
-        }
-
-        /* CATEGORY FILTER */
-
-        if (currentCategory !== "All") {
-
-          const wantedCategory =
-            normalize(currentCategory);
-
-          const actualCategory =
-            normalize(item.category);
-
-          /*
-            Allows Game/Games and App/Apps.
-          */
-
-          const categoryMatches =
-            actualCategory === wantedCategory ||
-            actualCategory === wantedCategory + "s" ||
-            actualCategory.replace(/s$/, "") ===
-            wantedCategory.replace(/s$/, "");
-
-          if (!categoryMatches) {
-            return false;
-          }
-
-        }
-
-        /* COUNTRY FILTER */
-
-        if (country !== "All") {
-
-          const countries = Array.isArray(item.countries)
-            ? item.countries
-            : [];
-
-          const countryMatches =
-            countries.some(function(c) {
-
-              return normalize(c) === normalize(country);
-
-            });
-
-          if (!countryMatches) {
-            return false;
-          }
-
-        }
-
-        return true;
-
-      });
-
-    }
-
-
-    /* --------------------------------
-       SHOW RESULTS
-    -------------------------------- */
-
-    function showResults(query, country) {
-
-      const resultsSection =
-        document.getElementById("resultsSection");
-
-      const resultsGrid =
-        document.getElementById("resultsGrid");
-
-      const resultsTitle =
-        document.getElementById("resultsTitle");
-
-      const resultsInfo =
-        document.getElementById("resultsInfo");
-
-      const countryBadge =
-        doc
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AvailFinder</title><style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#080b12;
+color:white;
+min-height:100vh;
+}
+
+.container{
+width:min(1100px,92%);
+margin:auto;
+}
+
+nav{
+height:75px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid #202532;
+}
+
+.logo{
+font-size:25px;
+font-weight:800;
+}
+
+.logo span{
+color:#7c5cff;
+}
+
+.badge{
+padding:8px 13px;
+border:1px solid #292d3a;
+border-radius:20px;
+color:#9ba3b8;
+font-size:13px;
+}
+
+.hero{
+text-align:center;
+padding:80px 0 50px;
+}
+
+.label{
+display:inline-block;
+padding:8px 14px;
+border-radius:20px;
+background:#151126;
+border:1px solid #382b72;
+color:#a998ff;
+font-size:13px;
+margin-bottom:22px;
+}
+
+h1{
+font-size:clamp(42px,7vw,72px);
+line-height:1;
+letter-spacing:-3px;
+}
+
+.hero p{
+max-width:650px;
+margin:22px auto 32px;
+color:#9098ad;
+font-size:17px;
+line-height:1.6;
+}
+
+.search{
+display:flex;
+gap:8px;
+max-width:900px;
+margin:auto;
+padding:8px;
+background:#111520;
+border:1px solid #292e3c;
+border-radius:16px;
+}
+
+.search input{
+flex:1;
+min-width:0;
+background:transparent;
+border:0;
+outline:0;
+color:white;
+font-size:16px;
+padding:15px;
+}
+
+.search select{
+background:#181c28;
+color:white;
+border:1px solid #292e3c;
+border-radius:10px;
+padding:0 12px;
+outline:none;
+}
+
+.search button{
+background:#7c5cff;
+color:white;
+border:0;
+border-radius:10px;
+padding:0 25px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.search button:hover{
+background:#6949ed;
+}
+
+.quick{
+margin-top:18px;
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.quick button{
+background:transparent;
+border:1px solid #292e3c;
+color:#9ba3b8;
+padding:8px 13px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.quick button:hover{
+border-color:#7c5cff;
+color:white;
+}
+
+section{
+padding:60px 0;
+}
+
+#results{
+display:none;
+}
+
+.results-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:20px;
+flex-wrap:wrap;
+}
+
+.results-title{
+font-size:30px;
+}
+
+.results-info{
+color:#858da2;
+margin-top:7px;
+}
+
+.country-badge{
+background:#151126;
+border:1px solid #382b72;
+color:#a998ff;
+padding:9px 14px;
+border-radius:20px;
+font-size:13px;
+}
+
+.filters{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-bottom:20px;
+}
+
+.filter{
+background:transparent;
+border:1px solid #292e3c;
+color:#8991a5;
+padding:9px 14px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.filter.active,
+.filter:hover{
+background:#7c5cff;
+border-color:#7c5cff;
+color:white;
+}
+
+.card{
+background:#111520;
+border:1px solid #292e3c;
+border-radius:17px;
+padding:22px;
+margin-bottom:13px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+}
+
+.card:hover{
+border-color:#5140a0;
+}
+
+.card h3{
+font-size:20px;
+margin-bottom:8px;
+}
+
+.meta{
+color:#858da2;
+font-size:14px;
+line-height:1.8;
+}
+
+.meta strong{
+color:#c8ccda;
+}
+
+.card a{
+background:#7c5cff;
+color:white;
+padding:11px 16px;
+border-radius:9px;
+font-size:13px;
+font-weight:bold;
+white-space:nowrap;
+}
+
+.empty{
+text-align:center;
+padding:40px 20px;
+border:1px dashed #303544;
+border-radius:16px;
+color:#858da2;
+}
+
+.categories{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:12px;
+}
+
+.category{
+background:#111520;
+border:1px solid #292e3c;
+border-radius:15px;
+padding:22px 10px;
+text-align:center;
+cursor:pointer;
+}
+
+.category:hover{
+border-color:#7c5cff;
+}
+
+.icon{
+font-size:26px;
+margin-bottom:8px;
+}
+
+.category p{
+font-size:13px;
+color:#aab1c2;
+}
+
+.steps{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.step{
+background:#111520;
+border:1px solid #292e3c;
+border-radius:16px;
+padding:24px;
+}
+
+.number{
+width:35px;
+height:35px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:#1b1636;
+color:#a998ff;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.step p{
+color:#858da2;
+line-height:1.6;
+font-size:14px;
+margin-top:8px;
+}
+
+.countries{
+display:flex;
+flex-wrap:wrap;
+gap:9px;
+}
+
+.country{
+background:#111520;
+border:1px solid #292e3c;
+color:#aab1c2;
+padding:10px 14px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.country:hover{
+border-color:#7c5cff;
+color:white;
+}
+
+footer{
+border-top:1px solid #202532;
+padding:30px 0;
+text-align:center;
+color:#626b80;
+font-size:13px;
+}
+
+@media(max-width:800px){
+
+.search{
+flex-wrap:wrap;
+}
+
+.search input{
+width:100%;
+flex-basis:100%;
+}
+
+.search select,
+.search button{
+height:48px;
+flex:1;
+}
+
+.categories{
+grid-template-columns:repeat(3,1fr);
+}
+
+.steps{
+grid-template-columns:1fr;
+}
+
+.card{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+@media(max-width:500px){
+
+.categories{
+grid-template-columns:repeat(2,1fr);
+}
+
+.badge{
+display:none;
+}
+
+.hero{
+padding-top:60px;
+}
+
+}
+</style></head><body><div class="container"><nav>
+<div class="logo">Avail<span>Finder</span></div>
+<div class="badge">Availability Search</div>
+</nav><div class="hero"><div class="label">🌎 Global Availability Search</div><h1>Find where anything is available.</h1><p>
+Search apps, games, movies, TV shows, music and software
+to discover where they are available.
+</p><div class="search"><input
+id="searchInput"
+type="text"
+placeholder="Search Netflix, PUBG Mobile, Spotify..."
+
+«»
+
+<select id="country"><option value="All">🌎 All Countries</option>
+<option value="India">🇮🇳 India</option>
+<option value="USA">🇺🇸 USA</option>
+<option value="UK">🇬🇧 UK</option>
+<option value="Canada">🇨🇦 Canada</option>
+<option value="Australia">🇦🇺 Australia</option>
+<option value="Germany">🇩🇪 Germany</option>
+<option value="Japan">🇯🇵 Japan</option>
+<option value="South Korea">🇰🇷 South Korea</option>
+<option value="Brazil">🇧🇷 Brazil</option>
+<option value="France">🇫🇷 France</option></select><button onclick="search()">Search</button>
+
+</div><div class="quick"><button onclick="quick('Netflix')">Netflix</button>
+<button onclick="quick('PUBG Mobile')">PUBG Mobile</button>
+<button onclick="quick('Minecraft')">Minecraft</button>
+<button onclick="quick('Spotify')">Spotify</button>
+<button onclick="quick('WhatsApp')">WhatsApp</button>
+
+</div></div><section id="results"><div class="results-top"><div>
+<h2 class="results-title" id="resultTitle">
+Search Results
+</h2><div class="results-info" id="resultInfo"></div>
+</div><div class="country-badge" id="countryBadge">
+🌎 All Countries
+</div></div><div class="filters"><button class="filter active" onclick="filterCategory('All',this)">
+All
+</button><button class="filter" onclick="filterCategory('App',this)">
+Apps
+</button><button class="filter" onclick="filterCategory('Game',this)">
+Games
+</button><button class="filter" onclick="filterCategory('Movie',this)">
+Movies
+</button><button class="filter" onclick="filterCategory('TV Show',this)">
+TV Shows
+</button><button class="filter" onclick="filterCategory('Music',this)">
+Music
+</button><button class="filter" onclick="filterCategory('Software',this)">
+Software
+</button></div><div id="resultList"></div></section><section><h2>Explore categories</h2><p style="color:#858da2;margin:10px 0 25px;">
+Search different types of digital content.
+</p><div class="categories"><div class="category" onclick="categorySearch('App')">
+<div class="icon">📱</div>
+<p>Apps</p>
+</div><div class="category" onclick="categorySearch('Game')">
+<div class="icon">🎮</div>
+<p>Games</p>
+</div><div class="category" onclick="categorySearch('Movie')">
+<div class="icon">🎬</div>
+<p>Movies</p>
+</div><div class="category" onclick="categorySearch('TV Show')">
+<div class="icon">📺</div>
+<p>TV Shows</p>
+</div><div class="category" onclick="categorySearch('Music')">
+<div class="icon">🎵</div>
+<p>Music</p>
+</div><div class="category" onclick="categorySearch('Software')">
+<div class="icon">💻</div>
+<p>Software</p>
+</div></div></section><section><h2>Popular countries</h2><p style="color:#858da2;margin:10px 0 25px;">
+Choose a country to search availability.
+</p><div class="countries"><button class="country" onclick="chooseCountry('India')">
+🇮🇳 India
+</button><button class="country" onclick="chooseCountry('USA')">
+🇺🇸 USA
+</button><button class="country" onclick="chooseCountry('UK')">
+🇬🇧 UK
+</button><button class="country" onclick="chooseCountry('Canada')">
+🇨🇦 Canada
+</button><button class="country" onclick="chooseCountry('Australia')">
+🇦🇺 Australia
+</button><button class="country" onclick="chooseCountry('Germany')">
+🇩🇪 Germany
+</button><button class="country" onclick="chooseCountry('Japan')">
+🇯🇵 Japan
+</button><button class="country" onclick="chooseCountry('South Korea')">
+🇰🇷 South Korea
+</button></div></section><section><h2>How AvailFinder works</h2><p style="color:#858da2;margin:10px 0 25px;">
+Three simple steps.
+</p><div class="steps"><div class="step">
+<div class="number">1</div>
+<h3>Search</h3>
+<p>
+Enter an app, game, movie, TV show, music service or software.
+</p>
+</div><div class="step">
+<div class="number">2</div>
+<h3>Choose country</h3>
+<p>
+Select a country or search across all supported countries.
+</p>
+</div><div class="step">
+<div class="number">3</div>
+<h3>See availability</h3>
+<p>
+See the platform, country and official source.
+</p>
+</div></div></section><footer>
+© 2026 AvailFinder — Availability information may change.
+</footer></div><script>
+
+/* ==========================================
+   AVAILFINDER DATABASE
+   Everything is inside this file.
+========================================== */
+
+const database = [
+
+{
+name:"Netflix",
+category:"TV Show",
+platform:"Android, iOS, Web, Smart TV",
+link:"https://www.netflix.com/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"PUBG Mobile",
+category:"Game",
+platform:"Android, iOS",
+link:"https://www.pubgmobile.com/",
+countries:[
+"USA","UK","Canada","Australia","Germany",
+"Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"PUBG",
+category:"Game",
+platform:"PC, PlayStation, Xbox",
+link:"https://pubg.com/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"Minecraft",
+category:"Game",
+platform:"Android, iOS, PC, PlayStation, Xbox, Nintendo Switch",
+link:"https://www.minecraft.net/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"Spotify",
+category:"Music",
+platform:"Android, iOS, Web, Desktop",
+link:"https://www.spotify.com/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"WhatsApp",
+category:"App",
+platform:"Android, iOS, Web",
+link:"https://www.whatsapp.com/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"Telegram",
+category:"App",
+platform:"Android, iOS, Web, Desktop",
+link:"https://telegram.org/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"Instagram",
+category:"App",
+platform:"Android, iOS, Web",
+link:"https://www.instagram.com/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"Fortnite",
+category:"Game",
+platform:"PC, PlayStation, Xbox, Nintendo Switch, Mobile",
+link:"https://www.fortnite.com/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"VLC",
+category:"Software",
+platform:"Android, iOS, Windows, macOS, Linux",
+link:"https://www.videolan.org/vlc/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+},
+
+{
+name:"Steam",
+category:"Software",
+platform:"Windows, macOS, Linux",
+link:"https://store.steampowered.com/",
+countries:[
+"India","USA","UK","Canada","Australia",
+"Germany","Japan","South Korea","Brazil","France"
+]
+}
+
+];
+
+
+let currentCategory="All";
+
+
+/* ==========================================
+   NORMALIZE SEARCH
+========================================== */
+
+function normalize(text){
+
+return String(text)
+.toLowerCase()
+.replace(/[^a-z0-9]+/g," ")
+.trim();
+
+}
+
+
+/* ==========================================
+   MAIN SEARCH
+========================================== */
+
+function search(){
+
+const input=
+document.getElementById("searchInput");
+
+const country=
+document.getElementById("country").value;
+
+const query=input.value.trim();
+
+if(!query){
+
+alert("Please enter something to search.");
+
+input.focus();
+
+return;
+
+}
+
+currentCategory="All";
+
+document
+.querySelectorAll(".filter")
+.forEach(function(button){
+
+button.classList.remove("active");
+
+});
+
+document
+.querySelector(".filter")
+.classList.add("active");
+
+
+showResults(query,country);
+
+}
+
+
+/* ==========================================
+   FIND RESULTS
+========================================== */
+
+function getResults(query,country){
+
+const words=
+normalize(query)
+.split(" ")
+.filter(Boolean);
+
+
+return database.filter(function(item){
+
+const searchable=
+normalize(
+item.name+" "+
+item.category+" "+
+item.platform
+);
+
+
+const nameMatches=
+words.every(function(word){
+
+return searchable.includes(word);
+
+});
+
+
+if(!nameMatches){
+
+return false;
+
+}
+
+
+if(currentCategory!=="All"){
+
+const itemCategory=
+normalize(item.category);
+
+const wanted=
+normalize(currentCategory);
+
+if(
+itemCategory!==wanted &&
+itemCategory!==wanted+"s" &&
+itemCategory.replace(/s$/,"")!==wanted.replace(/s$/,"")
+){
+
+return false;
+
+}
+
+}
+
+
+if(country!=="All"){
+
+const countryMatch=
+item.countries.some(function(c){
+
+return normalize(c)===normalize(country);
+
+});
+
+if(!countryMatch){
+
+return false;
+
+}
+
+}
+
+
+return true;
+
+});
+
+}
+
+
+/* ==========================================
+   DISPLAY RESULTS
+========================================== */
+
+function showResults(query,country){
+
+const section=
+document.getElementById("results");
+
+const list=
+document.getElementById("resultList");
+
+const resultTitle=
+document.getElementById("resultTitle");
+
+const resultInfo=
+document.getElementById("resultInfo");
+
+const countryBadge=
+document.getElementById("countryBadge");
+
+
+const results=
+getResults(query,country);
+
+
+section.style.display="block";
+
+
+resultTitle.textContent=
+'Results for "'+query+'"';
+
+
+resultInfo.textContent=
+results.length+
+(results.length===1?" result":" results");
+
+
+countryBadge.textContent=
+country==="All"
+?"🌎 All Countries"
+:"📍 "+country;
+
+
+list.innerHTML="";
+
+
+if(results.length===0){
+
+list.innerHTML=`
+
+<div class="empty">
+
+<h3>No results found</h3>
+
+<p style="margin-top:8px;">
+Try another search or select All Countries.
+</p>
+
+</div>
+
+`;
+
+}else{
+
+results.forEach(function(item){
+
+const card=
+document.createElement("div");
+
+card.className="card";
+
+
+card.innerHTML=`
+
+<div>
+
+<h3>${item.name}</h3>
+
+<div class="meta">
+
+<strong>Category:</strong>
+${item.category}
+
+<br>
+
+<strong>Platform:</strong>
+${item.platform}
+
+<br>
+
+<strong>Available in:</strong>
+${item.countries.join(", ")}
+
+</div>
+
+</div>
+
+<a
+href="${item.link}"
+target="_blank"
+rel="noopener noreferrer"
+>
+Official Source →
+</a>
+
+`;
+
+
+list.appendChild(card);
+
+});
+
+}
+
+
+setTimeout(function(){
+
+section.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+},100);
+
+}
+
+
+/* ==========================================
+   QUICK SEARCH
+========================================== */
+
+function quick(name){
+
+document
+.getElementById("searchInput")
+.value=name;
+
+document
+.getElementById("country")
+.value="All";
+
+search();
+
+}
+
+
+/* ==========================================
+   CATEGORY SEARCH
+========================================== */
+
+function categorySearch(category){
+
+currentCategory=category;
+
+const results=
+database.filter(function(item){
+
+return normalize(item.category)
+.replace(/s$/,"")
+===
+normalize(category)
+.replace(/s$/,"");
+
+});
+
+
+const section=
+document.getElementById("results");
+
+const list=
+document.getElementById("resultList");
+
+
+section.style.display="block";
+
+
+document
+.getElementById("resultTitle")
+.textContent=
+category+" availability";
+
+
+document
+.getElementById("resultInfo")
+.textContent=
+results.length+
+(results.length===1?" result":" results");
+
+
+document
+.getElementById("countryBadge")
+.textContent=
+"🌎 All Countries";
+
+
+list.innerHTML="";
+
+
+results.forEach(function(item){
+
+const card=
+document.createElement("div");
+
+card.className="card";
+
+
+card.innerHTML=`
+
+<div>
+
+<h3>${item.name}</h3>
+
+<div class="meta">
+
+<strong>Category:</strong>
+${item.category}
+
+<br>
+
+<strong>Platform:</strong>
+${item.platform}
+
+<br>
+
+<strong>Available in:</strong>
+${item.countries.join(", ")}
+
+</div>
+
+</div>
+
+<a
+href="${item.link}"
+target="_blank"
+rel="noopener noreferrer"
+>
+Official Source →
+</a>
+
+`;
+
+list.appendChild(card);
+
+});
+
+
+setTimeout(function(){
+
+section.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+},100);
+
+}
+
+
+/* ==========================================
+   CATEGORY FILTER
+========================================== */
+
+function filterCategory(category,button){
+
+currentCategory=category;
+
+
+document
+.querySelectorAll(".filter")
+.forEach(function(btn){
+
+btn.classList.remove("active");
+
+});
+
+
+button.classList.add("active");
+
+
+const query=
+document
+.getElementById("searchInput")
+.value.trim();
+
+
+const country=
+document
+.getElementById("country")
+.value;
+
+
+if(query){
+
+showResults(query,country);
+
+}else{
+
+categorySearch(category);
+
+}
+
+}
+
+
+/* ==========================================
+   COUNTRY BUTTON
+========================================== */
+
+function chooseCountry(country){
+
+document
+.getElementById("country")
+.value=country;
+
+
+const query=
+document
+.getElementById("searchInput")
+.value.trim();
+
+
+if(query){
+
+search();
+
+}else{
+
+alert(
+"Country selected: "+
+country+
+". Now search for something."
+);
+
+}
+
+}
+
+
+/* ==========================================
+   ENTER KEY
+========================================== */
+
+document
+.getElementById("searchInput")
+.addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+
+search();
+
+}
+
+}
+);
+
+</script></body>
+</html>
