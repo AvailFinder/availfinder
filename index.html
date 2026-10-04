@@ -7,13 +7,9 @@
 <title>AvailFinder — Find Where It's Available</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
@@ -21,8 +17,6 @@ body{
   background:#07090f;
   color:#f7f7fb;
 }
-
-/* NAVBAR */
 
 .navbar{
   height:72px;
@@ -44,9 +38,7 @@ body{
   letter-spacing:-.6px;
 }
 
-.logo span{
-  color:#8067ff;
-}
+.logo span{color:#8067ff}
 
 .navlinks{
   display:flex;
@@ -59,11 +51,7 @@ body{
   font-size:14px;
 }
 
-.navlinks a:hover{
-  color:white;
-}
-
-/* HERO */
+.navlinks a:hover{color:white}
 
 .hero{
   min-height:570px;
@@ -111,9 +99,7 @@ body{
   margin:0;
 }
 
-.hero h1 span{
-  color:#8067ff;
-}
+.hero h1 span{color:#8067ff}
 
 .hero p{
   color:#9da4b5;
@@ -122,8 +108,6 @@ body{
   max-width:650px;
   margin:24px auto 34px;
 }
-
-/* SEARCH */
 
 .searchArea{
   max-width:760px;
@@ -161,9 +145,7 @@ body{
   font-size:15px;
 }
 
-.searchBox button:hover{
-  background:#927dff;
-}
+.searchBox button:hover{background:#927dff}
 
 .searchHint{
   margin-top:13px;
@@ -171,15 +153,11 @@ body{
   font-size:12px;
 }
 
-/* CONTAINER */
-
 .container{
   width:88%;
   max-width:1150px;
   margin:auto;
 }
-
-/* CATEGORIES */
 
 .sectionTitle{
   text-align:center;
@@ -229,8 +207,6 @@ body{
   color:#c9ceda;
 }
 
-/* FILTER AREA */
-
 .tools{
   display:flex;
   justify-content:space-between;
@@ -269,8 +245,6 @@ body{
   outline:none;
 }
 
-/* RESULTS */
-
 .resultsTop{
   display:flex;
   justify-content:space-between;
@@ -291,9 +265,11 @@ body{
 .results{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:17px;
+  gap:18px;
   padding-bottom:90px;
 }
+
+/* NORMAL CARD */
 
 .card{
   background:linear-gradient(145deg,#121620,#0e1119);
@@ -348,7 +324,7 @@ body{
 }
 
 .platform{
-  color:#c7ccd7 !important;
+  color:#c7ccd7!important;
 }
 
 .countries{
@@ -372,9 +348,143 @@ body{
   font-weight:600;
 }
 
-.visit:hover{
-  background:#8067ff;
+.visit:hover{background:#8067ff}
+
+/* MOVIE CARD */
+
+.movieCard{
+  grid-column:span 2;
+  display:grid;
+  grid-template-columns:155px 1fr;
+  min-height:330px;
+  overflow:hidden;
+  padding:0;
+  background:linear-gradient(145deg,#151925,#0d1018);
 }
+
+.moviePoster{
+  min-height:330px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 50% 35%,#6b56d9,#242040 38%,#11131d 75%);
+  position:relative;
+}
+
+.posterText{
+  text-align:center;
+  padding:15px;
+}
+
+.posterIcon{
+  font-size:48px;
+  margin-bottom:12px;
+}
+
+.posterTitle{
+  font-size:14px;
+  font-weight:800;
+  line-height:1.3;
+}
+
+.movieInfo{
+  padding:25px;
+}
+
+.movieHeader{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.movieTitle{
+  font-size:25px!important;
+  margin:0!important;
+}
+
+.movieYear{
+  color:#858da0;
+  font-size:13px;
+  margin-top:7px;
+}
+
+.rating{
+  white-space:nowrap;
+  background:#201d14;
+  color:#f1c75b;
+  border:1px solid #4b4024;
+  border-radius:8px;
+  padding:7px 10px;
+  font-size:12px;
+  height:max-content;
+}
+
+.genre{
+  margin-top:14px;
+  color:#9da4b5;
+  font-size:13px;
+}
+
+.movieDescription{
+  color:#8d95a7!important;
+  margin-top:17px!important;
+}
+
+.availabilityTitle{
+  margin-top:20px;
+  margin-bottom:10px;
+  font-size:13px;
+  color:#d7dae3;
+  font-weight:700;
+}
+
+.availabilityGroup{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.provider{
+  border:1px solid #2a3040;
+  background:#111520;
+  border-radius:9px;
+  padding:8px 11px;
+  color:#cdd1db;
+  font-size:12px;
+}
+
+.provider span{
+  color:#858da0;
+  margin-left:4px;
+}
+
+.movieFooter{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px solid #242938;
+}
+
+.lastChecked{
+  font-size:10px;
+  color:#626a7b;
+}
+
+.movieButton{
+  background:#8067ff;
+  color:white;
+  text-decoration:none;
+  padding:10px 14px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.movieButton:hover{background:#927dff}
 
 /* EMPTY */
 
@@ -393,8 +503,6 @@ body{
   font-size:18px;
   margin-bottom:8px;
 }
-
-/* HOW IT WORKS */
 
 .how{
   padding:80px 0;
@@ -420,17 +528,13 @@ body{
   font-size:13px;
 }
 
-.step h3{
-  margin:13px 0 8px;
-}
+.step h3{margin:13px 0 8px}
 
 .step p{
   color:#7f8799;
   line-height:1.6;
   font-size:14px;
 }
-
-/* FOOTER */
 
 footer{
   border-top:1px solid #1b1f29;
@@ -441,8 +545,6 @@ footer{
   font-size:13px;
 }
 
-/* MOBILE */
-
 @media(max-width:850px){
 
   .categories{
@@ -450,46 +552,38 @@ footer{
   }
 
   .results{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:1fr 1fr;
+  }
+
+  .movieCard{
+    grid-column:span 2;
   }
 
 }
 
 @media(max-width:600px){
 
-  .navbar{
-    height:64px;
-  }
+  .navbar{height:64px}
 
-  .navlinks{
-    display:none;
-  }
+  .navlinks{display:none}
 
   .hero{
     min-height:520px;
     padding-top:55px;
   }
 
-  .hero h1{
-    letter-spacing:-2px;
-  }
+  .hero h1{letter-spacing:-2px}
 
-  .hero p{
-    font-size:15px;
-  }
+  .hero p{font-size:15px}
 
-  .searchBox{
-    padding:6px;
-  }
+  .searchBox{padding:6px}
 
   .searchBox input{
     width:100%;
     padding:14px 10px;
   }
 
-  .searchBox button{
-    padding:0 18px;
-  }
+  .searchBox button{padding:0 18px}
 
   .categories{
     grid-template-columns:repeat(2,1fr);
@@ -500,12 +594,31 @@ footer{
     align-items:stretch;
   }
 
-  .country select{
-    width:100%;
-  }
+  .country select{width:100%}
 
   .results{
     grid-template-columns:1fr;
+  }
+
+  .movieCard{
+    grid-column:span 1;
+    display:block;
+  }
+
+  .moviePoster{
+    min-height:210px;
+  }
+
+  .movieInfo{
+    padding:20px;
+  }
+
+  .movieHeader{
+    align-items:flex-start;
+  }
+
+  .movieTitle{
+    font-size:21px!important;
   }
 
   .steps{
@@ -523,8 +636,6 @@ footer{
 
 <body>
 
-<!-- NAVBAR -->
-
 <nav class="navbar">
 
   <div class="logo">
@@ -539,8 +650,6 @@ footer{
 
 </nav>
 
-
-<!-- HERO -->
 
 <section class="hero" id="search">
 
@@ -569,7 +678,7 @@ footer{
         <input
           id="searchInput"
           type="text"
-          placeholder="Search Netflix, PUBG, Minecraft..."
+          placeholder="Search a movie, game, app..."
         >
 
         <button onclick="doSearch()">
@@ -589,8 +698,6 @@ footer{
 </section>
 
 
-<!-- MAIN -->
-
 <div class="container" id="explore">
 
   <div class="sectionTitle">
@@ -603,8 +710,6 @@ footer{
 
   </div>
 
-
-  <!-- CATEGORY CARDS -->
 
   <div class="categories">
 
@@ -640,8 +745,6 @@ footer{
 
   </div>
 
-
-  <!-- FILTERS -->
 
   <div class="tools">
 
@@ -682,7 +785,6 @@ footer{
       <select id="countrySelect" onchange="doSearch()">
 
         <option value="All">🌍 All Countries</option>
-
         <option value="India">🇮🇳 India</option>
         <option value="USA">🇺🇸 USA</option>
         <option value="UK">🇬🇧 UK</option>
@@ -701,13 +803,9 @@ footer{
   </div>
 
 
-  <!-- RESULTS -->
-
   <div class="resultsTop">
 
-    <h2 id="resultsTitle">
-      All Results
-    </h2>
+    <h2 id="resultsTitle">All Results</h2>
 
     <div class="count" id="resultCount">
       0 results
@@ -719,8 +817,6 @@ footer{
 
 </div>
 
-
-<!-- HOW IT WORKS -->
 
 <section class="how" id="how">
 
@@ -739,42 +835,30 @@ footer{
     <div class="steps">
 
       <div class="step">
-
         <div class="stepNumber">01 — SEARCH</div>
-
         <h3>Search anything</h3>
-
         <p>
           Enter the name of a movie, game, app, TV show,
           music service or software.
         </p>
-
       </div>
 
       <div class="step">
-
         <div class="stepNumber">02 — SELECT</div>
-
         <h3>Choose your country</h3>
-
         <p>
           Select the country or region where you want
           to check availability.
         </p>
-
       </div>
 
       <div class="step">
-
         <div class="stepNumber">03 — FIND</div>
-
         <h3>See your options</h3>
-
         <p>
           Discover platforms and official sources where
           the content can be accessed legally.
         </p>
-
       </div>
 
     </div>
@@ -786,13 +870,9 @@ footer{
 
 <footer>
 
-  <div>
-    © 2026 AvailFinder
-  </div>
+  <div>© 2026 AvailFinder</div>
 
-  <div>
-    Availability information may change.
-  </div>
+  <div>Availability information may change.</div>
 
 </footer>
 
@@ -892,7 +972,14 @@ const database = [
   {
     name:"Inception",
     category:"Movie",
-    platform:"Streaming / Rent / Buy",
+    year:"2010",
+    rating:"8.8/10",
+    genre:"Action • Sci-Fi • Thriller",
+    description:"A skilled thief who enters people's dreams is offered a chance to erase his past by planting an idea in someone's mind.",
+    poster:"🎬",
+    streaming:["Netflix"],
+    rent:["Prime Video","Apple TV"],
+    buy:["Apple TV","Google TV"],
     link:"https://www.netflix.com/",
     countries:["India","USA","UK","Canada","Australia","Germany","Japan","France"]
   },
@@ -900,7 +987,14 @@ const database = [
   {
     name:"Interstellar",
     category:"Movie",
-    platform:"Streaming / Rent / Buy",
+    year:"2014",
+    rating:"8.7/10",
+    genre:"Sci-Fi • Drama • Adventure",
+    description:"A team of explorers travels through a wormhole in space in search of a new home for humanity.",
+    poster:"🚀",
+    streaming:["Netflix"],
+    rent:["Prime Video","Apple TV"],
+    buy:["Apple TV","Google TV"],
     link:"https://www.netflix.com/",
     countries:["India","USA","UK","Canada","Australia","Germany","Japan","France"]
   },
@@ -908,7 +1002,14 @@ const database = [
   {
     name:"The Dark Knight",
     category:"Movie",
-    platform:"Streaming / Rent / Buy",
+    year:"2008",
+    rating:"9.0/10",
+    genre:"Action • Crime • Drama",
+    description:"Batman faces a criminal mastermind who pushes Gotham into chaos.",
+    poster:"🦇",
+    streaming:["Max"],
+    rent:["Prime Video","Apple TV"],
+    buy:["Apple TV","Google TV"],
     link:"https://www.max.com/",
     countries:["USA","UK","Canada","Australia","Germany","France"]
   }
@@ -934,20 +1035,18 @@ function chooseCategory(category){
   selectedCategory = category;
 
   document.querySelectorAll(".filter").forEach(function(button){
-
     button.classList.remove("active");
-
   });
 
-  const buttons = document.querySelectorAll(".filter");
+  document.querySelectorAll(".filter").forEach(function(button){
 
-  buttons.forEach(function(button){
+    const text = button.textContent.trim().toLowerCase();
 
-    if(button.textContent.trim().toLowerCase() === category.toLowerCase() ||
-       (category === "TV Show" && button.textContent.trim() === "TV Shows")){
-
+    if(
+      text === category.toLowerCase() ||
+      (category === "TV Show" && text === "tv shows")
+    ){
       button.classList.add("active");
-
     }
 
   });
@@ -967,9 +1066,7 @@ function setCategory(category,button){
   selectedCategory = category;
 
   document.querySelectorAll(".filter").forEach(function(btn){
-
     btn.classList.remove("active");
-
   });
 
   button.classList.add("active");
@@ -1013,7 +1110,7 @@ function doSearch(){
   });
 
 
-  displayResults(results,input);
+  displayResults(results,input,country);
 
 }
 
@@ -1024,131 +1121,4 @@ function getIcon(category){
   if(category === "Game") return "🎮";
   if(category === "Movie") return "🎬";
   if(category === "TV Show") return "📺";
-  if(category === "Music") return "🎵";
-  if(category === "Software") return "💻";
-
-  return "🔎";
-
-}
-
-
-function displayResults(results,searchText){
-
-  const box =
-    document.getElementById("results");
-
-  const title =
-    document.getElementById("resultsTitle");
-
-  const count =
-    document.getElementById("resultCount");
-
-
-  if(searchText){
-
-    title.textContent =
-      'Results for "' + searchText + '"';
-
-  }else if(selectedCategory !== "All"){
-
-    title.textContent =
-      selectedCategory + " Results";
-
-  }else{
-
-    title.textContent =
-      "All Results";
-
-  }
-
-
-  count.textContent =
-    results.length + " result" +
-    (results.length === 1 ? "" : "s");
-
-
-  if(results.length === 0){
-
-    box.innerHTML = `
-
-      <div class="empty">
-
-        <strong>No results found</strong>
-
-        Try another title, category or country.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  box.innerHTML = results.map(function(item){
-
-    return `
-
-      <div class="card">
-
-        <div class="cardTop">
-
-          <div class="icon">
-            ${getIcon(item.category)}
-          </div>
-
-          <div class="type">
-            ${item.category}
-          </div>
-
-        </div>
-
-        <h3>
-          ${item.name}
-        </h3>
-
-        <p class="platform">
-          💻 ${item.platform}
-        </p>
-
-        <div class="countries">
-          🌍 Available in ${item.countries.length} countries
-        </div>
-
-        <a
-          class="visit"
-          href="${item.link}"
-          target="_blank"
-          rel="noopener"
-        >
-          Official Source →
-        </a>
-
-      </div>
-
-    `;
-
-  }).join("");
-
-}
-
-
-document.getElementById("searchInput")
-.addEventListener("keydown",function(event){
-
-  if(event.key === "Enter"){
-
-    doSearch();
-
-  }
-
-});
-
-
-displayResults(database,"");
-
-</script>
-
-</body>
-</html>
+  if(cat
