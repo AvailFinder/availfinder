@@ -147,12 +147,6 @@ body{
 
 .searchBox button:hover{background:#927dff}
 
-.searchHint{
-  margin-top:13px;
-  color:#686f80;
-  font-size:12px;
-}
-
 .container{
   width:88%;
   max-width:1150px;
@@ -454,11 +448,6 @@ body{
   font-size:12px;
 }
 
-.provider span{
-  color:#858da0;
-  margin-left:4px;
-}
-
 .movieFooter{
   display:flex;
   justify-content:space-between;
@@ -503,6 +492,8 @@ body{
   font-size:18px;
   margin-bottom:8px;
 }
+
+/* HOW IT WORKS */
 
 .how{
   padding:80px 0;
@@ -563,27 +554,39 @@ footer{
 
 @media(max-width:600px){
 
-  .navbar{height:64px}
+  .navbar{
+    height:64px;
+  }
 
-  .navlinks{display:none}
+  .navlinks{
+    display:none;
+  }
 
   .hero{
     min-height:520px;
     padding-top:55px;
   }
 
-  .hero h1{letter-spacing:-2px}
+  .hero h1{
+    letter-spacing:-2px;
+  }
 
-  .hero p{font-size:15px}
+  .hero p{
+    font-size:15px;
+  }
 
-  .searchBox{padding:6px}
+  .searchBox{
+    padding:6px;
+  }
 
   .searchBox input{
     width:100%;
     padding:14px 10px;
   }
 
-  .searchBox button{padding:0 18px}
+  .searchBox button{
+    padding:0 18px;
+  }
 
   .categories{
     grid-template-columns:repeat(2,1fr);
@@ -594,7 +597,9 @@ footer{
     align-items:stretch;
   }
 
-  .country select{width:100%}
+  .country select{
+    width:100%;
+  }
 
   .results{
     grid-template-columns:1fr;
@@ -687,10 +692,6 @@ footer{
 
       </div>
 
-      <div class="searchHint">
-        Press Enter to search
-      </div>
-
     </div>
 
   </div>
@@ -780,6 +781,7 @@ footer{
 
     </div>
 
+
     <div class="country">
 
       <select id="countrySelect" onchange="doSearch()">
@@ -813,6 +815,7 @@ footer{
 
   </div>
 
+
   <div id="results" class="results"></div>
 
 </div>
@@ -832,33 +835,60 @@ footer{
 
     </div>
 
+
     <div class="steps">
 
       <div class="step">
-        <div class="stepNumber">01 — SEARCH</div>
-        <h3>Search anything</h3>
+
+        <div class="stepNumber">
+          01 — SEARCH
+        </div>
+
+        <h3>
+          Search anything
+        </h3>
+
         <p>
           Enter the name of a movie, game, app, TV show,
           music service or software.
         </p>
+
       </div>
 
+
       <div class="step">
-        <div class="stepNumber">02 — SELECT</div>
-        <h3>Choose your country</h3>
+
+        <div class="stepNumber">
+          02 — SELECT
+        </div>
+
+        <h3>
+          Choose your country
+        </h3>
+
         <p>
           Select the country or region where you want
           to check availability.
         </p>
+
       </div>
 
+
       <div class="step">
-        <div class="stepNumber">03 — FIND</div>
-        <h3>See your options</h3>
+
+        <div class="stepNumber">
+          03 — FIND
+        </div>
+
+        <h3>
+          See your options
+        </h3>
+
         <p>
           Discover platforms and official sources where
           the content can be accessed legally.
         </p>
+
       </div>
 
     </div>
@@ -870,14 +900,22 @@ footer{
 
 <footer>
 
-  <div>© 2026 AvailFinder</div>
+  <div>
+    © 2026 AvailFinder
+  </div>
 
-  <div>Availability information may change.</div>
+  <div>
+    Availability information may change.
+  </div>
 
 </footer>
 
 
 <script>
+
+/* ================================
+   AVAILFINDER DATABASE
+================================ */
 
 const database = [
 
@@ -886,7 +924,10 @@ const database = [
     category:"App",
     platform:"Android, iOS, Web",
     link:"https://www.whatsapp.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -894,7 +935,10 @@ const database = [
     category:"App",
     platform:"Android, iOS, Web, Desktop",
     link:"https://telegram.org/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -902,7 +946,10 @@ const database = [
     category:"App",
     platform:"Android, iOS, Web",
     link:"https://www.instagram.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -910,7 +957,10 @@ const database = [
     category:"Music",
     platform:"Android, iOS, Web, Desktop",
     link:"https://www.spotify.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -918,7 +968,10 @@ const database = [
     category:"TV Show",
     platform:"Android, iOS, Web, Smart TV",
     link:"https://www.netflix.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -926,7 +979,10 @@ const database = [
     category:"Game",
     platform:"PC, PlayStation, Xbox, Nintendo Switch, Mobile",
     link:"https://www.fortnite.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -934,7 +990,10 @@ const database = [
     category:"Game",
     platform:"Android, iOS, PC, PlayStation, Xbox, Nintendo Switch",
     link:"https://www.minecraft.net/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -942,7 +1001,10 @@ const database = [
     category:"Game",
     platform:"Android, iOS",
     link:"https://www.pubgmobile.com/",
-    countries:["USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "USA","UK","Canada","Australia","Germany",
+      "Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -950,7 +1012,10 @@ const database = [
     category:"Game",
     platform:"PC, PlayStation, Xbox",
     link:"https://pubg.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -958,7 +1023,10 @@ const database = [
     category:"Software",
     platform:"Android, iOS, Windows, macOS, Linux",
     link:"https://www.videolan.org/vlc/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
 
   {
@@ -966,8 +1034,14 @@ const database = [
     category:"Software",
     platform:"Windows, macOS, Linux",
     link:"https://store.steampowered.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","South Korea","Brazil","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","South Korea","Brazil","France"
+    ]
   },
+
+
+  /* MOVIES */
 
   {
     name:"Inception",
@@ -975,13 +1049,17 @@ const database = [
     year:"2010",
     rating:"8.8/10",
     genre:"Action • Sci-Fi • Thriller",
-    description:"A skilled thief who enters people's dreams is offered a chance to erase his past by planting an idea in someone's mind.",
+    description:
+      "A skilled thief who enters people's dreams is offered a chance to erase his past by planting an idea in someone's mind.",
     poster:"🎬",
     streaming:["Netflix"],
     rent:["Prime Video","Apple TV"],
     buy:["Apple TV","Google TV"],
     link:"https://www.netflix.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","France"
+    ]
   },
 
   {
@@ -990,13 +1068,17 @@ const database = [
     year:"2014",
     rating:"8.7/10",
     genre:"Sci-Fi • Drama • Adventure",
-    description:"A team of explorers travels through a wormhole in space in search of a new home for humanity.",
+    description:
+      "A team of explorers travels through a wormhole in space in search of a new home for humanity.",
     poster:"🚀",
     streaming:["Netflix"],
     rent:["Prime Video","Apple TV"],
     buy:["Apple TV","Google TV"],
     link:"https://www.netflix.com/",
-    countries:["India","USA","UK","Canada","Australia","Germany","Japan","France"]
+    countries:[
+      "India","USA","UK","Canada","Australia",
+      "Germany","Japan","France"
+    ]
   },
 
   {
@@ -1005,20 +1087,32 @@ const database = [
     year:"2008",
     rating:"9.0/10",
     genre:"Action • Crime • Drama",
-    description:"Batman faces a criminal mastermind who pushes Gotham into chaos.",
+    description:
+      "Batman faces a criminal mastermind who pushes Gotham into chaos.",
     poster:"🦇",
     streaming:["Max"],
     rent:["Prime Video","Apple TV"],
     buy:["Apple TV","Google TV"],
     link:"https://www.max.com/",
-    countries:["USA","UK","Canada","Australia","Germany","France"]
+    countries:[
+      "USA","UK","Canada","Australia",
+      "Germany","France"
+    ]
   }
 
 ];
 
 
+/* ================================
+   CURRENT FILTER
+================================ */
+
 let selectedCategory = "All";
 
+
+/* ================================
+   NORMALIZE SEARCH
+================================ */
 
 function normalize(text){
 
@@ -1030,28 +1124,40 @@ function normalize(text){
 }
 
 
+/* ================================
+   CATEGORY CARD
+================================ */
+
 function chooseCategory(category){
 
   selectedCategory = category;
 
   document.querySelectorAll(".filter").forEach(function(button){
+
     button.classList.remove("active");
+
   });
+
 
   document.querySelectorAll(".filter").forEach(function(button){
 
-    const text = button.textContent.trim().toLowerCase();
+    const text =
+      button.textContent.trim().toLowerCase();
 
     if(
       text === category.toLowerCase() ||
       (category === "TV Show" && text === "tv shows")
     ){
+
       button.classList.add("active");
+
     }
 
   });
 
+
   doSearch();
+
 
   document.getElementById("results").scrollIntoView({
     behavior:"smooth",
@@ -1061,29 +1167,43 @@ function chooseCategory(category){
 }
 
 
+/* ================================
+   FILTER BUTTON
+================================ */
+
 function setCategory(category,button){
 
   selectedCategory = category;
 
+
   document.querySelectorAll(".filter").forEach(function(btn){
+
     btn.classList.remove("active");
+
   });
 
+
   button.classList.add("active");
+
 
   doSearch();
 
 }
 
 
+/* ================================
+   SEARCH
+================================ */
+
 function doSearch(){
 
   const input =
-    normalize(document.getElementById("searchInput").value);
+    normalize(
+      document.getElementById("searchInput").value
+    );
 
   const country =
     document.getElementById("countrySelect").value;
-
 
   const results = database.filter(function(item){
 
@@ -1109,7 +1229,6 @@ function doSearch(){
 
   });
 
-
   displayResults(results,input,country);
 
 }
@@ -1121,4 +1240,280 @@ function getIcon(category){
   if(category === "Game") return "🎮";
   if(category === "Movie") return "🎬";
   if(category === "TV Show") return "📺";
-  if(cat
+  if(category === "Music") return "🎵";
+  if(category === "Software") return "💻";
+
+  return "🌐";
+}
+
+
+function normalCard(item){
+
+  return `
+    <div class="card">
+
+      <div class="cardTop">
+
+        <div class="icon">
+          ${getIcon(item.category)}
+        </div>
+
+        <div class="type">
+          ${item.category}
+        </div>
+
+      </div>
+
+      <h3>${item.name}</h3>
+
+      <p class="platform">
+        <strong>Platforms:</strong> ${item.platform}
+      </p>
+
+      <div class="countries">
+        🌍 Available in ${item.countries.length} countries
+      </div>
+
+      <a
+        class="visit"
+        href="${item.link}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Official Source →
+      </a>
+
+    </div>
+  `;
+
+}
+
+
+function providerList(list){
+
+  if(!list || list.length === 0){
+
+    return `
+      <div class="provider">
+        No providers listed
+      </div>
+    `;
+
+  }
+
+  return list.map(function(provider){
+
+    return `
+      <div class="provider">
+        ${provider}
+      </div>
+    `;
+
+  }).join("");
+
+}
+
+
+function movieCard(item){
+
+  return `
+    <div class="card movieCard">
+
+      <div class="moviePoster">
+
+        <div class="posterText">
+
+          <div class="posterIcon">
+            ${item.poster || "🎬"}
+          </div>
+
+          <div class="posterTitle">
+            ${item.name}
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="movieInfo">
+
+        <div class="movieHeader">
+
+          <div>
+
+            <h3 class="movieTitle">
+              ${item.name}
+            </h3>
+
+            <div class="movieYear">
+              ${item.year || ""}
+            </div>
+
+          </div>
+
+          <div class="rating">
+            ⭐ ${item.rating || "N/A"}
+          </div>
+
+        </div>
+
+        <div class="genre">
+          ${item.genre || ""}
+        </div>
+
+        <p class="movieDescription">
+          ${item.description || ""}
+        </p>
+
+        <div class="availabilityTitle">
+          📺 Streaming
+        </div>
+
+        <div class="availabilityGroup">
+          ${providerList(item.streaming)}
+        </div>
+
+        <div class="availabilityTitle">
+          💰 Rent
+        </div>
+
+        <div class="availabilityGroup">
+          ${providerList(item.rent)}
+        </div>
+
+        <div class="availabilityTitle">
+          🛒 Buy
+        </div>
+
+        <div class="availabilityGroup">
+          ${providerList(item.buy)}
+        </div>
+
+        <div class="movieFooter">
+
+          <div class="lastChecked">
+            Availability information • Demo data
+          </div>
+
+          <a
+            class="movieButton"
+            href="${item.link}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Official Source →
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+function displayResults(results,searchText,country){
+
+  const resultsContainer =
+    document.getElementById("results");
+
+  const resultsTitle =
+    document.getElementById("resultsTitle");
+
+  const resultCount =
+    document.getElementById("resultCount");
+
+
+  if(searchText){
+
+    resultsTitle.textContent =
+      'Results for "' + searchText + '"';
+
+  }else if(selectedCategory !== "All"){
+
+    resultsTitle.textContent =
+      selectedCategory + " Results";
+
+  }else{
+
+    resultsTitle.textContent =
+      "All Results";
+
+  }
+
+
+  resultCount.textContent =
+    results.length +
+    (results.length === 1 ? " result" : " results");
+
+
+  if(results.length === 0){
+
+    resultsContainer.innerHTML = `
+
+      <div class="empty">
+
+        <strong>No results found</strong>
+
+        Try another name, category, platform or country.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  resultsContainer.innerHTML =
+    results.map(function(item){
+
+      if(item.category === "Movie"){
+        return movieCard(item);
+      }
+
+      return normalCard(item);
+
+    }).join("");
+
+
+  if(searchText){
+
+    setTimeout(function(){
+
+      resultsContainer.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    },100);
+
+  }
+
+}
+
+
+document
+  .getElementById("searchInput")
+  .addEventListener("keydown",function(event){
+
+    if(event.key === "Enter"){
+
+      event.preventDefault();
+
+      doSearch();
+
+    }
+
+  });
+
+
+displayResults(database,"","All");
+
+</script>
+
+</body>
+</html>
