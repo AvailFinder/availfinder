@@ -1236,185 +1236,18 @@ function doSearch(){
 
 function getIcon(category){
 
-  if(category === "App") return "📱";
-  if(category === "Game") return "🎮";
-  if(category === "Movie") return "🎬";
-  if(category === "TV Show") return "📺";
-  if(category === "Music") return "🎵";
-  if(category === "Software") return "💻";
+async function doSearch(){
 
-  return "🌐";
-}
+  const input =
+    document.getElementById("searchInput").value.trim();
 
+  const country =
+    document.getElementById("countrySelect").value;
 
-function normalCard(item){
-
-  return `
-    <div class="card">
-
-      <div class="cardTop">
-
-        <div class="icon">
-          ${getIcon(item.category)}
-        </div>
-
-        <div class="type">
-          ${item.category}
-        </div>
-
-      </div>
-
-      <h3>${item.name}</h3>
-
-      <p class="platform">
-        <strong>Platforms:</strong> ${item.platform}
-      </p>
-
-      <div class="countries">
-        🌍 Available in ${item.countries.length} countries
-      </div>
-
-      <a
-        class="visit"
-        href="${item.link}"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Official Source →
-      </a>
-
-    </div>
-  `;
-
-}
-
-
-function providerList(list){
-
-  if(!list || list.length === 0){
-
-    return `
-      <div class="provider">
-        No providers listed
-      </div>
-    `;
-
+  if(input === ""){
+    displayResults(database, "", country);
+    return;
   }
-
-  return list.map(function(provider){
-
-    return `
-      <div class="provider">
-        ${provider}
-      </div>
-    `;
-
-  }).join("");
-
-}
-
-
-function movieCard(item){
-
-  return `
-    <div class="card movieCard">
-
-      <div class="moviePoster">
-
-        <div class="posterText">
-
-          <div class="posterIcon">
-            ${item.poster || "🎬"}
-          </div>
-
-          <div class="posterTitle">
-            ${item.name}
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="movieInfo">
-
-        <div class="movieHeader">
-
-          <div>
-
-            <h3 class="movieTitle">
-              ${item.name}
-            </h3>
-
-            <div class="movieYear">
-              ${item.year || ""}
-            </div>
-
-          </div>
-
-          <div class="rating">
-            ⭐ ${item.rating || "N/A"}
-          </div>
-
-        </div>
-
-        <div class="genre">
-          ${item.genre || ""}
-        </div>
-
-        <p class="movieDescription">
-          ${item.description || ""}
-        </p>
-
-        <div class="availabilityTitle">
-          📺 Streaming
-        </div>
-
-        <div class="availabilityGroup">
-          ${providerList(item.streaming)}
-        </div>
-
-        <div class="availabilityTitle">
-          💰 Rent
-        </div>
-
-        <div class="availabilityGroup">
-          ${providerList(item.rent)}
-        </div>
-
-        <div class="availabilityTitle">
-          🛒 Buy
-        </div>
-
-        <div class="availabilityGroup">
-          ${providerList(item.buy)}
-        </div>
-
-        <div class="movieFooter">
-
-          <div class="lastChecked">
-            Availability information • Demo data
-          </div>
-
-          <a
-            class="movieButton"
-            href="${item.link}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Official Source →
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-}
-
-
-function displayResults(results,searchText,country){
 
   const resultsContainer =
     document.getElementById("results");
@@ -1425,95 +1258,128 @@ function displayResults(results,searchText,country){
   const resultCount =
     document.getElementById("resultCount");
 
+  resultsTitle.textContent =
+    'Searching for "' + input + '"...';
 
-  if(searchText){
+  resultCount.textContent = "";
 
-    resultsTitle.textContent =
-      'Results for "' + searchText + '"';
+  resultsContainer.innerHTML = `
+    <div class="empty">
+      🔎 Searching real availability...
+    </div>
+  `;
 
-  }else if(selectedCategory !== "All"){
+  try{
 
-    resultsTitle.textContent =
-      selectedCategory + " Results";
+    const countryCode =
+      country === "India" ? "IN" :
+      country === "USA" ? "US" :
+      country === "UK" ? "GB" :
+      country === "Canada" ? "CA" :
+      country === "Australia" ? "AU" :
+      country === "Germany" ? "DE" :
+      country === "Japan" ? "JP" :
+      country === "South Korea" ? "KR" :
+      country === "Brazil" ? "BR" :
+      country === "France" ? "FR" :
+      "IN";
 
-  }else{
+    const apiUrl =
+      "https://availfinder-api.srinivaspandeeti.workers.dev/" +
+      "?query=" +
+      encodeURIComponent(input) +
+      "&country=" +
+      countryCode;
 
-    resultsTitle.textContent =
-      "All Results";
+    const response =
+      await fetch(apiUrl);
 
-  }
-
-
-  resultCount.textContent =
-    results.length +
-    (results.length === 1 ? " result" : " results");
-
-
-  if(results.length === 0){
-
-    resultsContainer.innerHTML = `
-
-      <div class="empty">
-
-        <strong>No results found</strong>
-
-        Try another name, category, platform or country.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  resultsContainer.innerHTML =
-    results.map(function(item){
-
-      if(item.category === "Movie"){
-        return movieCard(item);
-      }
-
-      return normalCard(item);
-
-    }).join("");
-
-
-  if(searchText){
-
-    setTimeout(function(){
-
-      resultsContainer.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
-
-    },100);
-
-  }
-
-}
-
-
-document
-  .getElementById("searchInput")
-  .addEventListener("keydown",function(event){
-
-    if(event.key === "Enter"){
-
-      event.preventDefault();
-
-      doSearch();
-
+    if(!response.ok){
+      throw new Error("API request failed");
     }
 
-  });
+    const data =
+      await response.json();
 
+    if(!data.movie){
 
-displayResults(database,"","All");
+      resultsTitle.textContent =
+        'No results for "' + input + '"';
 
-</script>
+      resultCount.textContent = "0 results";
 
-</body>
-</html>
+      resultsContainer.innerHTML = `
+        <div class="empty">
+          <strong>No results found</strong>
+          Try another movie name.
+        </div>
+      `;
+
+      return;
+    }
+
+    const movie = data.movie;
+    const availability = data.availability || {};
+
+    const movieItem = {
+      name: movie.title,
+      category: "Movie",
+      year: movie.release_date
+        ? movie.release_date.substring(0,4)
+        : "",
+      rating: movie.rating
+        ? movie.rating.toFixed(1) + "/10"
+        : "N/A",
+      description: movie.overview || "",
+      poster: movie.poster
+        ? '<img src="' + movie.poster + '" alt="' +
+          movie.title +
+          '" style="width:100%;height:100%;object-fit:cover;border-radius:16px;">'
+        : "🎬",
+
+      streaming:
+        (availability.streaming || [])
+          .map(function(provider){
+            return provider.provider_name;
+          }),
+
+      rent:
+        (availability.rent || [])
+          .map(function(provider){
+            return provider.provider_name;
+          }),
+
+      buy:
+        (availability.buy || [])
+          .map(function(provider){
+            return provider.provider_name;
+          }),
+
+      link: availability.link || "#"
+    };
+
+    resultsTitle.textContent =
+      'Results for "' + input + '"';
+
+    resultCount.textContent = "1 result";
+
+    resultsContainer.innerHTML =
+      movieCard(movieItem);
+
+  }catch(error){
+
+    console.error(error);
+
+    resultsTitle.textContent =
+      "Something went wrong";
+
+    resultCount.textContent = "";
+
+    resultsContainer.innerHTML = `
+      <div class="empty">
+        <strong>Could not load results</strong>
+        Please try again.
+      </div>
+    `;
+  }
+}
